@@ -1,0 +1,12 @@
+<div class="lang-switcher">
+  @for (lang of i18n.supportedLangs; track lang) {
+    <button
+      type="button"
+      class="lang-switcher__option"
+      [class.lang-switcher__option--active]="i18n.lang() === lang"
+      (click)="select(lang)"
+    >
+      {{ ('lang.' + lang) | translate }}
+    </button>
+  }
+</div>

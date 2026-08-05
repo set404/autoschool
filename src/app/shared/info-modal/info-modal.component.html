@@ -1,0 +1,9 @@
+<div class="info-modal__backdrop" (click)="close()">
+  <div class="info-modal__panel" (click)="$event.stopPropagation()">
+    <div class="info-modal__header">
+      <h3>{{ 'test.infoTitle' | translate }}</h3>
+      <button type="button" class="info-modal__close" (click)="close()" aria-label="close">&times;</button>
+    </div>
+    <p class="info-modal__body">{{ text() }}</p>
+  </div>
+</div>

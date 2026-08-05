@@ -1,0 +1,5 @@
+<router-outlet />
+
+@if (activeTab(); as tab) {
+  <app-bottom-nav [active]="tab" />
+}

@@ -1,0 +1,29 @@
+.lang-switcher {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.25rem;
+
+  &__option {
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      color: var(--color-text);
+    }
+
+    &--active {
+      background: var(--color-navy);
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@if (session.currentQuestion(); as question) {
+  <app-top-bar [title]="('test.questionOf' | translate: { current: questionNumber(), total: session.totalQuestions() })">
+    <div class="timer-chip" trailing>
+      <app-icon name="clock" />
+      <span>{{ clockLabel() }}</span>
+    </div>
+  </app-top-bar>
+
+  <main class="runner">
+    <div class="runner__progress-bar">
+      <div class="runner__progress-fill" [style.width.%]="(questionNumber() / session.totalQuestions()) * 100"></div>
+    </div>
+
+    <div class="question-card">
+      @if (question.imageUrl) {
+        <div class="question-card__image">
+          <img [src]="question.imageUrl" alt="" />
+        </div>
+      }
+      <h2>{{ question.text | localize }}</h2>
+    </div>
+
+    <ul class="runner__options">
+      @for (option of question.options; track option.id; let i = $index) {
+        <li>
+          <button
+            type="button"
+            class="option"
+            [class.option--correct]="optionState(option) === 'correct'"
+            [class.option--incorrect]="optionState(option) === 'incorrect'"
+            [class.option--muted]="optionState(option) === 'muted'"
+            [disabled]="session.isCurrentAnswered()"
+            (click)="selectOption(option.id)"
+          >
+            <span class="option__letter">{{ optionLetters[i] }}</span>
+            <span class="option__text">{{ option.text | localize }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    <div class="runner__actions">
+
+
+      <div class="runner__primary-row">
+        <button
+          type="button"
+          class="runner__info-button"
+          [disabled]="!session.isCurrentAnswered()"
+          [attr.aria-label]="'test.infoButtonAria' | translate"
+          (click)="openInfo()"
+        >
+          ?
+        </button>
+        <button type="button" class="next-button" [disabled]="!session.isCurrentAnswered()" (click)="onNext()">
+          {{ (session.isLastQuestion() ? 'common.finish' : 'test.nextQuestion') | translate }}
+          <app-icon name="arrow-right" />
+        </button>
+      </div>
+      <button type="button" class="mark-button" [class.mark-button--active]="session.isCurrentMarked()" (click)="toggleMark()">
+        <app-icon name="flag" />
+        {{ 'test.markForReview' | translate }}
+      </button>
+    </div>
+  </main>
+
+  @if (showInfo()) {
+    <app-info-modal [text]="question.info | localize" (closed)="showInfo.set(false)" />
+  }
+}

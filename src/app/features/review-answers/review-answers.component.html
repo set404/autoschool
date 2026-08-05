@@ -1,0 +1,23 @@
+<app-top-bar [title]="'results.reviewAnswers' | translate" />
+
+<main class="review">
+  @for (question of session.questions(); track question.id; let i = $index) {
+    <article class="review-item" [class.review-item--correct]="isCorrect(question)" [class.review-item--incorrect]="!isCorrect(question)">
+      <div class="review-item__header">
+        <span class="review-item__badge">
+          <app-icon [name]="isCorrect(question) ? 'check-circle' : 'x-circle'" />
+        </span>
+        <p class="review-item__number">{{ 'test.questionOf' | translate: { current: i + 1, total: session.totalQuestions() } }}</p>
+      </div>
+      <h3>{{ question.text | localize }}</h3>
+      <p class="review-item__answer">
+        {{ 'results.yourAnswer' | translate }}: {{ selectedOptionText(question) | localize }}
+      </p>
+      @if (!isCorrect(question)) {
+        <p class="review-item__correct-answer">
+          {{ 'test.correctAnswerWas' | translate }} {{ correctOptionText(question) | localize }}
+        </p>
+      }
+    </article>
+  }
+</main>

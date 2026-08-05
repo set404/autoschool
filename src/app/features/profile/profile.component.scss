@@ -1,0 +1,115 @@
+.profile {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px calc(120px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.profile-card__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--color-navy-tint);
+  color: var(--color-heading);
+  font-size: 30px;
+  flex-shrink: 0;
+}
+
+.profile-card__name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.profile-card__subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.settings-list {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.settings-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  font-size: 14px;
+  text-align: start;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &--button {
+    cursor: pointer;
+    color: var(--color-text-muted);
+  }
+
+  &--toggle {
+    color: var(--color-text);
+  }
+
+  &--danger {
+    color: var(--color-danger);
+  }
+
+  &__label {
+    font-weight: 600;
+    color: inherit;
+  }
+}
+
+.switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-surface-alt);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    transition: left 0.15s ease;
+  }
+
+  &--on {
+    background: var(--color-amber);
+
+    &::after {
+      left: 20px;
+    }
+  }
+}

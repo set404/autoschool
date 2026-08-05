@@ -1,0 +1,39 @@
+<app-top-bar [title]="'common.appName' | translate" />
+
+<main class="profile">
+  <section class="profile-card">
+    <span class="profile-card__avatar"><app-icon name="user" /></span>
+    <div>
+      <p class="profile-card__name">{{ 'profile.name' | translate }}</p>
+      <p class="profile-card__subtitle">{{ 'profile.subtitle' | translate }}</p>
+    </div>
+  </section>
+
+  <section class="settings-list">
+    <div class="settings-row">
+      <span class="settings-row__label">{{ 'profile.language' | translate }}</span>
+      <app-language-switcher />
+    </div>
+    <button
+      type="button"
+      class="settings-row settings-row--button settings-row--toggle"
+      role="switch"
+      [attr.aria-checked]="themeService.isDark()"
+      (click)="toggleTheme()"
+    >
+      <span class="settings-row__label">{{ 'profile.darkMode' | translate }}</span>
+      <span class="switch" [class.switch--on]="themeService.isDark()"></span>
+    </button>
+    <div class="settings-row">
+      <span class="settings-row__label">{{ 'profile.notifications' | translate }}</span>
+      <span class="switch switch--on"></span>
+    </div>
+    <button type="button" class="settings-row settings-row--button">
+      <span class="settings-row__label">{{ 'profile.help' | translate }}</span>
+      <app-icon name="chevron-right" />
+    </button>
+    <button type="button" class="settings-row settings-row--button settings-row--danger">
+      <span class="settings-row__label">{{ 'profile.logOut' | translate }}</span>
+    </button>
+  </section>
+</main>

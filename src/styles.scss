@@ -1,0 +1,104 @@
+:root {
+  --color-bg: #f7fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f4f6;
+  --color-surface-alt: #e5e9eb;
+
+  /* Fixed brand surfaces — deliberately dark navy / amber fills that stay
+     constant in both themes (hero cards, solid buttons, badges). */
+  --color-navy: #002045;
+  --color-navy-2: #1a365d;
+  --color-navy-tint: #d6e3ff;
+  --color-on-navy-muted: #86a0cd;
+
+  --color-amber: #875200;
+  --color-amber-light: #ffb55c;
+  --color-amber-tint: #ffddba;
+  --color-amber-deep: #673d00;
+
+  /* Adaptive ink — heading/accent text drawn directly on the page or card
+     background, so it must flip between themes (unlike the brand fills above). */
+  --color-heading: var(--color-navy);
+  --color-text: #181c1e;
+  --color-text-muted: #43474e;
+  --color-text-faint: #74777f;
+
+  --color-border: #c4c6cf;
+  --color-glass: rgba(255, 255, 255, 0.7);
+
+  --color-success: #12805c;
+  --color-success-bg: #dcfce7;
+  --color-danger: #ba1a1a;
+  --color-danger-bg: #fee2e2;
+
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --shadow-card: 0 4px 6px rgba(26, 54, 93, 0.05);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0b1220;
+  --color-surface: #121c2c;
+  --color-surface-muted: #182335;
+  --color-surface-alt: #202c40;
+
+  --color-navy-tint: #22335a;
+
+  --color-amber: #e2984f;
+  --color-amber-tint: #3d2a16;
+  --color-amber-deep: #ffddba;
+
+  --color-heading: #eef2f6;
+  --color-text: #eef2f6;
+  --color-text-muted: #a8b2c0;
+  --color-text-faint: #8993a3;
+
+  --color-border: #2a3547;
+  --color-glass: rgba(18, 28, 44, 0.7);
+
+  --color-success: #34d399;
+  --color-success-bg: rgba(52, 211, 153, 0.15);
+  --color-danger: #f87171;
+  --color-danger-bg: rgba(248, 113, 113, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}

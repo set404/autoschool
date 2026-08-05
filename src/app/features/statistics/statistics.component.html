@@ -1,0 +1,74 @@
+<app-top-bar [title]="'common.appName' | translate">
+  <button type="button" class="icon-button" trailing aria-label="notifications">
+    <app-icon name="bell" />
+  </button>
+</app-top-bar>
+
+<main class="statistics">
+  <h2 class="statistics__heading">{{ 'statistics.heading' | translate }}</h2>
+
+  <div class="overview">
+    <div class="overview__tile">
+      <app-icon name="quiz" />
+      <span class="overview__value">{{ progress.testsTaken() }}</span>
+      <span class="overview__label">{{ 'statistics.testsTaken' | translate }}</span>
+    </div>
+    <div class="overview__tile">
+      <app-icon name="chart-bar" />
+      <span class="overview__value">{{ progress.averageScorePercent() }}%</span>
+      <span class="overview__label">{{ 'statistics.avgScore' | translate }}</span>
+    </div>
+    <div class="overview__tile">
+      <app-icon name="check-circle" />
+      <span class="overview__value">{{ progress.bestStreak() }}</span>
+      <span class="overview__label">{{ 'statistics.bestStreak' | translate }}</span>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="panel__header">
+      <h3>{{ 'statistics.missedQuestions' | translate }} ({{ missedQuestionsService.count() }})</h3>
+      @if (missedQuestionsService.count() > 0) {
+        <a class="panel__link" [routerLink]="missedTestRoute">{{ 'statistics.practiceMissed' | translate }}</a>
+      }
+    </div>
+
+    @if (missedQuestionList().length === 0) {
+      <p class="empty-state">{{ 'statistics.missedEmpty' | translate }}</p>
+    } @else {
+      <ul class="missed-list">
+        @for (q of missedQuestionList(); track q.id) {
+          <li class="missed-item">
+            <app-icon name="x-circle" />
+            <span>{{ q.text | localize }}</span>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+  <section class="panel">
+    <h3>{{ 'statistics.recentAttempts' | translate }}</h3>
+
+    @if (recentAttempts().length === 0) {
+      <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
+    } @else {
+      <ul class="attempt-list">
+        @for (attempt of recentAttempts(); track attempt.id) {
+          <li class="attempt-item">
+            <div class="attempt-item__lead">
+              <span class="attempt-item__badge" [class.attempt-item__badge--fail]="!attempt.passed">
+                <app-icon [name]="attempt.passed ? 'check-circle' : 'x-circle'" />
+              </span>
+              <div>
+                <p class="attempt-item__title">{{ attempt.testTitle | localize }}</p>
+                <p class="attempt-item__date">{{ attempt.completedAt | date: 'mediumDate' }}</p>
+              </div>
+            </div>
+            <span class="attempt-item__score">{{ attempt.score }}/{{ attempt.total }}</span>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</main>

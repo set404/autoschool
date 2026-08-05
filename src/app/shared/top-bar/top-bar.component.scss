@@ -1,0 +1,48 @@
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: calc(48px + env(safe-area-inset-top, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: env(safe-area-inset-top, 0px) 24px 0;
+  background: var(--color-bg);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.top-bar__leading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.top-bar__icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-heading);
+  font-size: 20px;
+  padding: 6px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.top-bar__title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--color-heading);
+  white-space: nowrap;
+}
+
+.top-bar__trailing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-heading);
+  font-size: 20px;
+}

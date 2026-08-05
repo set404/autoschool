@@ -1,0 +1,74 @@
+<app-top-bar [title]="'allTests.heading' | translate">
+  <button type="button" class="icon-button" trailing aria-label="notifications">
+    <app-icon name="bell" />
+  </button>
+</app-top-bar>
+
+<main class="all-tests">
+  <div class="filter-row">
+    <button
+      type="button"
+      class="filter-chip"
+      [class.filter-chip--active]="filter() === 'all'"
+      (click)="setFilter('all')"
+    >
+      {{ 'allTests.filterAll' | translate }} ({{ counts().all }})
+    </button>
+    <button
+      type="button"
+      class="filter-chip"
+      [class.filter-chip--active]="filter() === 'not-started'"
+      (click)="setFilter('not-started')"
+    >
+      {{ 'allTests.notStarted' | translate }} ({{ counts()['not-started'] }})
+    </button>
+    <button
+      type="button"
+      class="filter-chip"
+      [class.filter-chip--active]="filter() === 'passed'"
+      (click)="setFilter('passed')"
+    >
+      {{ 'allTests.passed' | translate }} ({{ counts().passed }})
+    </button>
+    <button
+      type="button"
+      class="filter-chip"
+      [class.filter-chip--active]="filter() === 'failed'"
+      (click)="setFilter('failed')"
+    >
+      {{ 'allTests.failed' | translate }} ({{ counts().failed }})
+    </button>
+  </div>
+
+  @if (filteredItems().length === 0) {
+    <p class="empty-state">{{ 'allTests.empty' | translate }}</p>
+  } @else {
+    <ul class="test-list">
+      @for (item of filteredItems(); track item.test.id) {
+        <li>
+          <a class="test-item" [routerLink]="['/test', item.test.id]">
+            <span class="test-item__badge test-item__badge--{{ item.status }}">
+              <app-icon [name]="statusIcon(item.status)" />
+            </span>
+            <div class="test-item__body">
+              <p class="test-item__title">{{ item.test.title | localize }}</p>
+              @if (item.attempt; as attempt) {
+                <p class="test-item__meta">
+                  {{ statusLabelKey(item.status) | translate }} · {{ attempt.score }}/{{ attempt.total }} ({{
+                    attempt.percentage
+                  }}%)
+                </p>
+              } @else {
+                <p class="test-item__meta">
+                  {{ statusLabelKey(item.status) | translate }} ·
+                  {{ 'allTests.questionCount' | translate: { count: item.test.questionIds.length } }}
+                </p>
+              }
+            </div>
+            <app-icon name="chevron-right" />
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</main>

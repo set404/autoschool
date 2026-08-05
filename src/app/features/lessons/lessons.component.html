@@ -1,0 +1,64 @@
+<app-top-bar [title]="'common.appName' | translate">
+  <button type="button" class="icon-button" trailing aria-label="notifications">
+    <app-icon name="bell" />
+  </button>
+</app-top-bar>
+
+<main class="lessons">
+  <section class="hero">
+    <h2>{{ 'lessons.heroTitle' | translate }}</h2>
+    <p>{{ 'lessons.heroSubtitle' | translate }}</p>
+    <div class="hero__progress">
+      <div class="hero__bar">
+        <div class="hero__bar-fill" [style.width.%]="(lessonsDone / lessonsTotal) * 100"></div>
+      </div>
+      <span>{{ lessonsDone }}/{{ lessonsTotal }} {{ 'lessons.lessonsLabel' | translate }}</span>
+    </div>
+  </section>
+
+  <section class="curriculum">
+    <div class="curriculum__header">
+      <h3>{{ 'lessons.curriculum' | translate }}</h3>
+      <button type="button" class="curriculum__reset">
+        {{ 'lessons.resetProgress' | translate }}
+        <app-icon name="refresh" />
+      </button>
+    </div>
+
+    @for (topic of topics; track topic.titleKey) {
+      <article class="topic-card">
+        <div class="topic-card__top">
+          <span class="topic-card__icon topic-card__icon--{{ topic.status }}">
+            <app-icon [name]="topic.icon" />
+          </span>
+          <span class="topic-card__status topic-card__status--{{ topic.status }}">
+            {{ statusKey(topic.status) | translate }}
+          </span>
+        </div>
+        <h4>{{ topic.titleKey | translate }}</h4>
+        <p>{{ topic.descriptionKey | translate }}</p>
+        <div class="topic-card__footer">
+          @if (topic.progress !== undefined) {
+            <div class="topic-card__progress">
+              <div class="topic-card__progress-row">
+                <span>{{ 'lessons.progress' | translate }}</span>
+                <span>{{ topic.progress }}%</span>
+              </div>
+              <div class="topic-card__bar">
+                <div class="topic-card__bar-fill" [style.width.%]="topic.progress"></div>
+              </div>
+            </div>
+          } @else {
+            <span class="topic-card__meta">{{ topic.metaKey | translate }}</span>
+            <app-icon name="chevron-right" />
+          }
+        </div>
+      </article>
+    }
+  </section>
+
+  <section class="quote-card">
+    <app-icon name="quote" />
+    <p>{{ 'lessons.quote' | translate }}</p>
+  </section>
+</main>

@@ -1,0 +1,115 @@
+<app-top-bar [title]="'common.appName' | translate">
+  <button type="button" class="icon-button" trailing aria-label="notifications">
+    <app-icon name="bell" />
+  </button>
+</app-top-bar>
+
+<main class="dashboard">
+  <section class="hero">
+    <div class="hero__decoration hero__decoration--top"></div>
+    <div class="hero__decoration hero__decoration--bottom"></div>
+    <h2 class="hero__title">{{ 'dashboard.welcome' | translate }}</h2>
+    <p class="hero__subtitle">{{ 'dashboard.progressBlurb' | translate }}</p>
+
+    @if (firstTestId; as testId) {
+      <a class="hero__cta" [routerLink]="['/test', testId]">
+        <app-icon name="play" />
+        {{ 'dashboard.quickStart' | translate }}
+      </a>
+    }
+
+    <div class="hero__lesson">
+      <app-icon name="clock" />
+      <span>{{ 'dashboard.nextLesson' | translate }}</span>
+    </div>
+  </section>
+
+  <section class="stat-card">
+    <div class="stat-card__row">
+      <span class="stat-card__icon stat-card__icon--navy"><app-icon name="book" /></span>
+      <span class="stat-card__value">{{ lessonsCompleted }}/{{ lessonsTotal }}</span>
+    </div>
+    <h3 class="stat-card__title">{{ 'dashboard.lessonsCompleted' | translate }}</h3>
+    <div class="stat-card__bar">
+      <div class="stat-card__bar-fill" [style.width.%]="(lessonsCompleted / lessonsTotal) * 100"></div>
+    </div>
+  </section>
+
+  <section class="stat-card">
+    <div class="stat-card__row">
+      <span class="stat-card__icon stat-card__icon--amber"><app-icon name="chart-bar" /></span>
+      <span class="stat-card__value">{{ progress.averageScorePercent() }}%</span>
+    </div>
+    <h3 class="stat-card__title">{{ 'dashboard.avgScore' | translate }}</h3>
+    <p class="stat-card__hint">
+      {{ (progress.testsTaken() > 0 ? 'dashboard.avgScoreHint' : 'dashboard.avgScoreEmptyHint') | translate }}
+    </p>
+  </section>
+
+  <section class="panel">
+    <div class="panel__header">
+      <h3 class="panel__title">{{ 'dashboard.recentTests' | translate }}</h3>
+      <a class="panel__link" routerLink="/statistics">{{ 'dashboard.viewAll' | translate }}</a>
+    </div>
+    @if (recentTests().length === 0) {
+      <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
+    } @else {
+      <ul class="recent-list">
+        @for (item of recentTests(); track item.id) {
+          <li class="recent-item">
+            <div class="recent-item__lead">
+              <span class="recent-item__badge" [class.recent-item__badge--fail]="!item.passed">
+                <app-icon [name]="item.passed ? 'check-circle' : 'x-circle'" />
+              </span>
+              <div>
+                <p class="recent-item__title">{{ item.testTitle | localize }}</p>
+                <p class="recent-item__date">{{ item.completedAt | date: 'mediumDate' }}</p>
+              </div>
+            </div>
+            <span class="recent-item__score">{{ item.score }}/{{ item.total }}</span>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+  <section class="lesson-card">
+    <div class="lesson-card__header">
+      <app-icon name="clock" />
+      <h3>{{ 'dashboard.upcomingLesson' | translate }}</h3>
+    </div>
+    <div class="lesson-card__row">
+      <span class="lesson-card__avatar"><app-icon name="user" /></span>
+      <div>
+        <p class="lesson-card__name">{{ 'dashboard.instructor' | translate }}</p>
+        <p class="lesson-card__time">{{ 'dashboard.lessonTime' | translate }}</p>
+      </div>
+    </div>
+    <button type="button" class="lesson-card__reschedule">{{ 'dashboard.reschedule' | translate }}</button>
+  </section>
+
+  <section class="panel panel--flush">
+    <h3 class="panel__title">{{ 'dashboard.recommended' | translate }}</h3>
+    <div class="module-grid">
+      @for (mod of modules; track mod.titleKey) {
+        <a class="module-card" routerLink="/lessons">
+          <div class="module-card__image module-card__image--{{ mod.accent }}"></div>
+          <div class="module-card__body">
+            <h4>{{ mod.titleKey | translate }}</h4>
+            <p>{{ mod.descriptionKey | translate }}</p>
+            <span class="module-card__cta">
+              {{ 'dashboard.startModule' | translate }}
+              <app-icon name="chevron-right" />
+            </span>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+</main>
+
+@if (firstTestId; as testId) {
+  <a class="fab" [routerLink]="['/test', testId]" [attr.aria-label]="'dashboard.quickStart' | translate">
+    <app-icon name="plus" />
+  </a>
+}

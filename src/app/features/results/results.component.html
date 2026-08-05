@@ -1,0 +1,79 @@
+@if (session.test(); as test) {
+  <app-top-bar [title]="'common.appName' | translate">
+    <button type="button" class="icon-button" trailing aria-label="notifications">
+      <app-icon name="bell" />
+    </button>
+  </app-top-bar>
+
+  <main class="results">
+    <header class="results__header">
+      <h1>{{ 'results.title' | translate }}</h1>
+      <p>{{ 'results.subtitle' | translate }}</p>
+    </header>
+
+    <section class="score-card">
+      <div class="score-ring" [style.background]="ringStyle()">
+        <div class="score-ring__inner">
+          <span class="score-ring__value">{{ percentage() }}%</span>
+          <span class="score-ring__label">{{ 'results.finalScore' | translate }}</span>
+        </div>
+      </div>
+      <p class="score-card__detail">
+        {{ (passed() ? 'results.passedDetail' : 'results.failedDetail') | translate: { threshold: passThreshold } }}
+      </p>
+    </section>
+
+    <section class="panel">
+      <h3>{{ 'results.quickStats' | translate }}</h3>
+      <div class="stat-row">
+        <div class="stat-row__lead">
+          <app-icon name="check-circle" />
+          <span>{{ 'results.correct' | translate }}</span>
+        </div>
+        <span class="stat-row__value stat-row__value--amber">{{ session.score() }}</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row__lead">
+          <app-icon name="x-circle" />
+          <span>{{ 'results.incorrect' | translate }}</span>
+        </div>
+        <span class="stat-row__value stat-row__value--danger">{{ session.totalQuestions() - session.score() }}</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row__lead">
+          <app-icon name="clock" />
+          <span>{{ 'results.timeTaken' | translate }}</span>
+        </div>
+        <span class="stat-row__value">{{ timeTakenLabel() }}</span>
+      </div>
+    </section>
+
+    <section class="test-card">
+      <p class="test-card__label">{{ 'results.testLabel' | translate }}</p>
+      <div class="test-card__row">
+        <span class="test-card__icon"><app-icon name="warning-sign" /></span>
+        <div>
+          <p class="test-card__title">{{ test.title | localize }}</p>
+          <p class="test-card__subtitle">{{ percentage() }}% {{ 'results.accuracy' | translate }}</p>
+        </div>
+      </div>
+    </section>
+
+    <app-ad-banner [slotId]="adSlotId" />
+
+    <div class="results__actions">
+      <a class="results__review" [routerLink]="['/test', id(), 'review']">
+        <app-icon name="book" />
+        {{ 'results.reviewAnswers' | translate }}
+      </a>
+      <a class="results__home" routerLink="/">
+        {{ 'results.backToDashboard' | translate }}
+      </a>
+    </div>
+
+    <section class="motivation-card">
+      <h4>{{ 'results.motivationTitle' | translate }}</h4>
+      <p>{{ 'results.motivationSubtitle' | translate }}</p>
+    </section>
+  </main>
+}

@@ -1,0 +1,23 @@
+@if (session.test(); as test) {
+  <app-top-bar [title]="'common.appName' | translate" />
+
+  <main class="ad-interstitial">
+    <p class="ad-interstitial__eyebrow">{{ 'ad.interstitialEyebrow' | translate }}</p>
+    <h1>{{ 'ad.interstitialTitle' | translate }}</h1>
+
+    <app-ad-banner [slotId]="adSlotId" format="rectangle" />
+
+    <button
+      type="button"
+      class="ad-interstitial__continue"
+      [disabled]="secondsLeft() > 0"
+      (click)="continue()"
+    >
+      @if (secondsLeft() > 0) {
+        {{ 'ad.continueIn' | translate: { seconds: secondsLeft() } }}
+      } @else {
+        {{ 'ad.continue' | translate }}
+      }
+    </button>
+  </main>
+}
