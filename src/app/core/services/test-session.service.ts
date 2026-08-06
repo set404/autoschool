@@ -50,10 +50,17 @@ export class TestSessionService {
     ),
   );
 
-  readonly elapsedSeconds = computed(() => {
+  /**
+   * Deliberately a plain method, not a computed() -- it reads Date.now()
+   * directly, which isn't a signal, so a computed() would never be marked
+   * dirty as real time passes and would freeze at its first-read value.
+   * Callers that need it to tick (the countdown clock) drive their own
+   * signal (e.g. a setInterval-updated tick()) and call this fresh each time.
+   */
+  elapsedSeconds(): number {
     const end = this._finishedAt() ?? Date.now();
     return Math.max(0, Math.round((end - this._startedAt()) / 1000));
-  });
+  }
 
   start(test: TestSummary, questions: Question[]): void {
     this._test.set(test);
