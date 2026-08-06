@@ -11,6 +11,7 @@
       type="button"
       class="ad-interstitial__continue"
       [disabled]="secondsLeft() > 0"
+
       (click)="continue()"
     >
       @if (secondsLeft() > 0) {
