@@ -1,5 +1,15 @@
 @if (session.currentQuestion(); as question) {
   <app-top-bar [title]="('test.questionOf' | translate: { current: questionNumber(), total: session.totalQuestions() })">
+    <button
+      type="button"
+      class="mark-icon-button"
+      trailing
+      [class.mark-icon-button--active]="session.isCurrentMarked()"
+      [attr.aria-label]="'test.markForReview' | translate"
+      (click)="toggleMark()"
+    >
+      <app-icon name="flag" />
+    </button>
     <div class="timer-chip" trailing>
       <app-icon name="clock" />
       <span>{{ clockLabel() }}</span>
@@ -71,11 +81,6 @@
         <app-icon name="arrow-right" />
       </button>
     </div>
-
-    <button type="button" class="mark-button" [class.mark-button--active]="session.isCurrentMarked()" (click)="toggleMark()">
-      <app-icon name="flag" />
-      {{ 'test.markForReview' | translate }}
-    </button>
   </div>
 
   @if (showInfo()) {
