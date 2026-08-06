@@ -37,7 +37,7 @@ export class I18nService {
   }
 
   private loadLang(lang: Lang): void {
-    this.http.get<Record<string, string>>(`/i18n/${lang}.json`).subscribe((strings) => {
+    this.http.get<Record<string, string>>(`i18n/${lang}.json`).subscribe((strings) => {
       this._strings.set(strings);
       document.documentElement.lang = lang;
     });
