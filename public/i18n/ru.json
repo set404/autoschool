@@ -1,5 +1,5 @@
 {
-  "common.appName": "autoGo",
+  "common.appName": "Auto Go",
   "common.finish": "Завершить",
 
   "test.questionOf": "Вопрос {current} из {total}",
