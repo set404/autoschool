@@ -30,6 +30,6 @@ export class ThemeService {
   }
 
   private readStored(): Theme {
-    return localStorage.getItem(STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    return localStorage.getItem(STORAGE_KEY) === 'light' ? 'light' : 'dark';
   }
 }
