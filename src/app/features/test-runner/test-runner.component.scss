@@ -106,18 +106,9 @@
     color: var(--color-text);
   }
 
-  &--correct {
-    border-color: var(--color-success);
-    background: var(--color-success-bg);
-  }
-
-  &--incorrect {
-    border-color: var(--color-danger);
-    background: var(--color-danger-bg);
-  }
-
-  &--muted {
-    opacity: 0.5;
+  &--selected {
+    border-color: var(--color-navy);
+    background: var(--color-navy-tint);
   }
 }
 
@@ -141,6 +132,13 @@
     right: auto;
     transform: translateX(-50%);
   }
+}
+
+.runner__hint {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-danger);
 }
 
 .mark-button {

@@ -26,10 +26,7 @@
           <button
             type="button"
             class="option"
-            [class.option--correct]="optionState(option) === 'correct'"
-            [class.option--incorrect]="optionState(option) === 'incorrect'"
-            [class.option--muted]="optionState(option) === 'muted'"
-            [disabled]="session.isCurrentAnswered()"
+            [class.option--selected]="optionState(option) === 'selected'"
             (click)="selectOption(option.id)"
           >
             <span class="option__letter">{{ optionLetters[i] }}</span>
@@ -42,6 +39,9 @@
   </main>
 
   <div class="runner__actions">
+    @if (session.isLastQuestion() && !session.allAnswered()) {
+      <p class="runner__hint">{{ 'test.answerAllHint' | translate }}</p>
+    }
     <div class="runner__primary-row">
       <button
         type="button"
@@ -61,11 +61,17 @@
       >
         ?
       </button>
-      <button type="button" class="next-button" [disabled]="!session.isCurrentAnswered()" (click)="onNext()">
+      <button
+        type="button"
+        class="next-button"
+        [disabled]="session.isLastQuestion() && !session.allAnswered()"
+        (click)="onNext()"
+      >
         {{ (session.isLastQuestion() ? 'common.finish' : 'test.nextQuestion') | translate }}
         <app-icon name="arrow-right" />
       </button>
     </div>
+
     <button type="button" class="mark-button" [class.mark-button--active]="session.isCurrentMarked()" (click)="toggleMark()">
       <app-icon name="flag" />
       {{ 'test.markForReview' | translate }}

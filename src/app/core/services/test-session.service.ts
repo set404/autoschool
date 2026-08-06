@@ -35,6 +35,9 @@ export class TestSessionService {
   });
 
   readonly isCurrentAnswered = computed(() => this.selectedOptionId() !== undefined);
+  readonly allAnswered = computed(() =>
+    this._questions().every((q) => this._answers()[q.id] !== undefined),
+  );
   readonly isCurrentMarked = computed(() => {
     const q = this.currentQuestion();
     return q ? this._markedForReview().has(q.id) : false;
@@ -64,7 +67,7 @@ export class TestSessionService {
 
   selectOption(optionId: string): void {
     const q = this.currentQuestion();
-    if (!q || this.isCurrentAnswered()) return;
+    if (!q) return;
     this._answers.update((answers) => ({ ...answers, [q.id]: optionId }));
   }
 

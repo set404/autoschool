@@ -12,7 +12,7 @@ import { TestSummary } from '../../core/models/test.model';
 import { MissedQuestionsService } from '../../core/services/missed-questions.service';
 import { MISSED_TEST_DESCRIPTION, MISSED_TEST_ID, MISSED_TEST_TITLE } from '../../core/constants';
 
-type OptionState = 'idle' | 'correct' | 'incorrect' | 'muted';
+type OptionState = 'idle' | 'selected';
 
 const OPTION_LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
@@ -118,11 +118,7 @@ export class TestRunnerComponent {
 
   optionState(option: QuestionOption): OptionState {
     const selected = this.session.selectedOptionId();
-    const question = this.session.currentQuestion();
-    if (selected === undefined || !question) return 'idle';
-    if (option.id === question.correctOptionId) return 'correct';
-    if (option.id === selected) return 'incorrect';
-    return 'muted';
+    return selected !== undefined && option.id === selected ? 'selected' : 'idle';
   }
 
   selectOption(optionId: string): void {
@@ -145,10 +141,11 @@ export class TestRunnerComponent {
   }
 
   onNext(): void {
-    if (!this.session.isCurrentAnswered()) return;
     this.showInfo.set(false);
     if (this.session.isLastQuestion()) {
-      this.finishTest();
+      if (this.session.allAnswered()) {
+        this.finishTest();
+      }
     } else {
       this.session.goNext();
     }

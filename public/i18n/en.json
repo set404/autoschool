@@ -4,6 +4,7 @@
 
   "test.questionOf": "Question {current} of {total}",
   "test.markForReview": "Mark for Review",
+  "test.answerAllHint": "Answer all questions before finishing the test",
   "test.nextQuestion": "Next Question",
   "test.previousQuestion": "Previous Question",
   "test.infoTitle": "Explanation",

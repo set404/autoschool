@@ -4,6 +4,7 @@
 
   "test.questionOf": "Вопрос {current} из {total}",
   "test.markForReview": "Отметить для повтора",
+  "test.answerAllHint": "Ответьте на все вопросы, чтобы завершить тест",
   "test.nextQuestion": "Следующий вопрос",
   "test.previousQuestion": "Предыдущий вопрос",
   "test.infoTitle": "Объяснение",

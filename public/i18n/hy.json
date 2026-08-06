@@ -4,6 +4,7 @@
 
   "test.questionOf": "Հարց {current} / {total}",
   "test.markForReview": "Նշել կրկնության համար",
+  "test.answerAllHint": "Պատասխանեք բոլոր հարցերին՝ թեստն ավարտելու համար",
   "test.nextQuestion": "Հաջորդ հարց",
   "test.previousQuestion": "Նախորդ հարց",
   "test.infoTitle": "Բացատրություն",
