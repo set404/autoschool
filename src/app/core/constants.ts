@@ -1,6 +1,6 @@
 import { LocalizedText } from './models/i18n.model';
 
-export const PASS_RATIO = 0.8;
+export const PASS_RATIO = 0.9;
 
 /** Reserved test id for the synthetic "practice your missed questions" session. */
 export const MISSED_TEST_ID = 'missed-questions';
