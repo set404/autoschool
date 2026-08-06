@@ -25,6 +25,7 @@ export class TestSessionService {
 
   readonly currentQuestion = computed(() => this._questions()[this._currentIndex()]);
   readonly totalQuestions = computed(() => this._questions().length);
+  readonly isFirstQuestion = computed(() => this._currentIndex() === 0);
   readonly isLastQuestion = computed(() => this._currentIndex() === this.totalQuestions() - 1);
   readonly timeBudgetSeconds = computed(() => this.totalQuestions() * SECONDS_PER_QUESTION);
 
@@ -80,6 +81,12 @@ export class TestSessionService {
   goNext(): void {
     if (this._currentIndex() < this.totalQuestions() - 1) {
       this._currentIndex.update((i) => i + 1);
+    }
+  }
+
+  goPrevious(): void {
+    if (this._currentIndex() > 0) {
+      this._currentIndex.update((i) => i - 1);
     }
   }
 

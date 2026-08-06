@@ -39,30 +39,38 @@
       }
     </ul>
 
-    <div class="runner__actions">
+  </main>
 
-
-      <div class="runner__primary-row">
-        <button
-          type="button"
-          class="runner__info-button"
-          [disabled]="!session.isCurrentAnswered()"
-          [attr.aria-label]="'test.infoButtonAria' | translate"
-          (click)="openInfo()"
-        >
-          ?
-        </button>
-        <button type="button" class="next-button" [disabled]="!session.isCurrentAnswered()" (click)="onNext()">
-          {{ (session.isLastQuestion() ? 'common.finish' : 'test.nextQuestion') | translate }}
-          <app-icon name="arrow-right" />
-        </button>
-      </div>
-      <button type="button" class="mark-button" [class.mark-button--active]="session.isCurrentMarked()" (click)="toggleMark()">
-        <app-icon name="flag" />
-        {{ 'test.markForReview' | translate }}
+  <div class="runner__actions">
+    <div class="runner__primary-row">
+      <button
+        type="button"
+        class="prev-button"
+        [disabled]="session.isFirstQuestion()"
+        [attr.aria-label]="'test.previousQuestion' | translate"
+        (click)="onPrevious()"
+      >
+        <app-icon name="arrow-left" />
+      </button>
+      <button
+        type="button"
+        class="runner__info-button"
+        [disabled]="!session.isCurrentAnswered()"
+        [attr.aria-label]="'test.infoButtonAria' | translate"
+        (click)="openInfo()"
+      >
+        ?
+      </button>
+      <button type="button" class="next-button" [disabled]="!session.isCurrentAnswered()" (click)="onNext()">
+        {{ (session.isLastQuestion() ? 'common.finish' : 'test.nextQuestion') | translate }}
+        <app-icon name="arrow-right" />
       </button>
     </div>
-  </main>
+    <button type="button" class="mark-button" [class.mark-button--active]="session.isCurrentMarked()" (click)="toggleMark()">
+      <app-icon name="flag" />
+      {{ 'test.markForReview' | translate }}
+    </button>
+  </div>
 
   @if (showInfo()) {
     <app-info-modal [text]="question.info | localize" (closed)="showInfo.set(false)" />

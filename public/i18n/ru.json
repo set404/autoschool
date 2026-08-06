@@ -5,6 +5,7 @@
   "test.questionOf": "Вопрос {current} из {total}",
   "test.markForReview": "Отметить для повтора",
   "test.nextQuestion": "Следующий вопрос",
+  "test.previousQuestion": "Предыдущий вопрос",
   "test.infoTitle": "Объяснение",
   "test.infoButtonAria": "Показать объяснение",
   "test.correctAnswerWas": "Правильный ответ:",
@@ -29,7 +30,7 @@
 
   "dashboard.welcome": "С возвращением, Алекс!",
   "dashboard.progressBlurb": "Вы прошли 60% пути к получению водительских прав. Продолжайте в том же духе!",
-  "dashboard.quickStart": "Быстрый старт теста",
+  "dashboard.quickStart": "Перейти к тестам",
   "dashboard.nextLesson": "Следующее занятие: завтра в 10:00",
   "dashboard.lessonsCompleted": "Пройдено уроков",
   "dashboard.avgScore": "Средний балл по теории",

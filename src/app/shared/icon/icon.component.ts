@@ -6,6 +6,7 @@ export type IconName =
   | 'clock'
   | 'flag'
   | 'arrow-right'
+  | 'arrow-left'
   | 'chevron-right'
   | 'check-circle'
   | 'x-circle'

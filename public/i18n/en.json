@@ -5,6 +5,7 @@
   "test.questionOf": "Question {current} of {total}",
   "test.markForReview": "Mark for Review",
   "test.nextQuestion": "Next Question",
+  "test.previousQuestion": "Previous Question",
   "test.infoTitle": "Explanation",
   "test.infoButtonAria": "Show explanation",
   "test.correctAnswerWas": "The correct answer was:",
@@ -29,7 +30,7 @@
 
   "dashboard.welcome": "Welcome back, Alex!",
   "dashboard.progressBlurb": "You're 60% of the way to your driving license. Keep up the great momentum!",
-  "dashboard.quickStart": "Quick Start Test",
+  "dashboard.quickStart": "Go to Tests",
   "dashboard.nextLesson": "Next lesson: Tomorrow at 10:00 AM",
   "dashboard.lessonsCompleted": "Lessons Completed",
   "dashboard.avgScore": "Average Theory Score",

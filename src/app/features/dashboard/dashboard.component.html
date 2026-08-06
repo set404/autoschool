@@ -11,8 +11,8 @@
     <h2 class="hero__title">{{ 'dashboard.welcome' | translate }}</h2>
     <p class="hero__subtitle">{{ 'dashboard.progressBlurb' | translate }}</p>
 
-    @if (firstTestId; as testId) {
-      <a class="hero__cta" [routerLink]="['/test', testId]">
+    @if (firstTestId) {
+      <a class="hero__cta" routerLink="/tests">
         <app-icon name="play" />
         {{ 'dashboard.quickStart' | translate }}
       </a>
@@ -108,8 +108,8 @@
   </section>
 </main>
 
-@if (firstTestId; as testId) {
-  <a class="fab" [routerLink]="['/test', testId]" [attr.aria-label]="'dashboard.quickStart' | translate">
+@if (firstTestId) {
+  <a class="fab" routerLink="/tests" [attr.aria-label]="'dashboard.quickStart' | translate">
     <app-icon name="plus" />
   </a>
 }

@@ -5,6 +5,7 @@
   "test.questionOf": "Հարց {current} / {total}",
   "test.markForReview": "Նշել կրկնության համար",
   "test.nextQuestion": "Հաջորդ հարց",
+  "test.previousQuestion": "Նախորդ հարց",
   "test.infoTitle": "Բացատրություն",
   "test.infoButtonAria": "Ցույց տալ բացատրությունը",
   "test.correctAnswerWas": "Ճիշտ պատասխանն է՝",
@@ -29,7 +30,7 @@
 
   "dashboard.welcome": "Բարի վերադարձ, Ալեքս:",
   "dashboard.progressBlurb": "Դուք 60%-ով մոտեցել եք ձեր վարորդական իրավունքին: Շարունակեք նույն ոգով:",
-  "dashboard.quickStart": "Արագ մեկնարկել թեստը",
+  "dashboard.quickStart": "Անցնել թեստերին",
   "dashboard.nextLesson": "Հաջորդ պարապմունքը՝ վաղը, ժամը 10:00",
   "dashboard.lessonsCompleted": "Ավարտված դասեր",
   "dashboard.avgScore": "Տեսության միջին միավոր",

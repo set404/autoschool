@@ -139,6 +139,11 @@ export class TestRunnerComponent {
     }
   }
 
+  onPrevious(): void {
+    this.showInfo.set(false);
+    this.session.goPrevious();
+  }
+
   onNext(): void {
     if (!this.session.isCurrentAnswered()) return;
     this.showInfo.set(false);
