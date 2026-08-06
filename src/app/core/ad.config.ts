@@ -11,7 +11,7 @@
  * exactly as it does today.
  */
 export const AD_CONFIG = {
-  publisherId: 'ca-pub-1234567890123456',
+  publisherId: 'ca-pub-xxxxxxxxxxxxxxxx',
   resultsBannerSlotId: '0000000000',
   interstitialSlotId: '0000000000',
 } as const;
