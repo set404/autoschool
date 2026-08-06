@@ -9,11 +9,11 @@ export class DataService {
   private readonly http = inject(HttpClient);
 
   private readonly tests$ = this.http
-    .get<TestSummary[]>('/data/tests.json')
+    .get<TestSummary[]>('data/tests.json')
     .pipe(shareReplay(1));
 
   private readonly questions$ = this.http
-    .get<Question[]>('/data/questions.json')
+    .get<Question[]>('data/questions.json')
     .pipe(shareReplay(1));
 
   getTests(): Observable<TestSummary[]> {
