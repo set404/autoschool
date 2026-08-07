@@ -12,10 +12,6 @@ export const routes: Routes = [
       import('./features/all-tests/all-tests.component').then((m) => m.AllTestsComponent),
   },
   {
-    path: 'lessons',
-    loadComponent: () => import('./features/lessons/lessons.component').then((m) => m.LessonsComponent),
-  },
-  {
     path: 'statistics',
     loadComponent: () =>
       import('./features/statistics/statistics.component').then((m) => m.StatisticsComponent),

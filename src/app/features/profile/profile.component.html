@@ -24,16 +24,5 @@
       <span class="settings-row__label">{{ 'profile.darkMode' | translate }}</span>
       <span class="switch" [class.switch--on]="themeService.isDark()"></span>
     </button>
-    <div class="settings-row">
-      <span class="settings-row__label">{{ 'profile.notifications' | translate }}</span>
-      <span class="switch switch--on"></span>
-    </div>
-    <button type="button" class="settings-row settings-row--button">
-      <span class="settings-row__label">{{ 'profile.help' | translate }}</span>
-      <app-icon name="chevron-right" />
-    </button>
-    <button type="button" class="settings-row settings-row--button settings-row--danger">
-      <span class="settings-row__label">{{ 'profile.logOut' | translate }}</span>
-    </button>
   </section>
 </main>

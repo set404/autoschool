@@ -1,9 +1,5 @@
 @if (session.test(); as test) {
-  <app-top-bar [title]="'common.appName' | translate">
-    <button type="button" class="icon-button" trailing aria-label="notifications">
-      <app-icon name="bell" />
-    </button>
-  </app-top-bar>
+  <app-top-bar [title]="'common.appName' | translate" />
 
   <main class="results">
     <header class="results__header">

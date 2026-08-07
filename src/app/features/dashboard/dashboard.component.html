@@ -1,8 +1,4 @@
-<app-top-bar [title]="'common.appName' | translate">
-  <button type="button" class="icon-button" trailing aria-label="notifications">
-    <app-icon name="bell" />
-  </button>
-</app-top-bar>
+<app-top-bar [title]="'common.appName' | translate" />
 
 <main class="dashboard">
   <section class="hero">
@@ -17,11 +13,6 @@
         {{ 'dashboard.quickStart' | translate }}
       </a>
     }
-
-    <div class="hero__lesson">
-      <app-icon name="clock" />
-      <span>{{ 'dashboard.nextLesson' | translate }}</span>
-    </div>
   </section>
 
   <section class="stat-card">
@@ -71,40 +62,6 @@
         }
       </ul>
     }
-  </section>
-
-  <section class="lesson-card">
-    <div class="lesson-card__header">
-      <app-icon name="clock" />
-      <h3>{{ 'dashboard.upcomingLesson' | translate }}</h3>
-    </div>
-    <div class="lesson-card__row">
-      <span class="lesson-card__avatar"><app-icon name="user" /></span>
-      <div>
-        <p class="lesson-card__name">{{ 'dashboard.instructor' | translate }}</p>
-        <p class="lesson-card__time">{{ 'dashboard.lessonTime' | translate }}</p>
-      </div>
-    </div>
-    <button type="button" class="lesson-card__reschedule">{{ 'dashboard.reschedule' | translate }}</button>
-  </section>
-
-  <section class="panel panel--flush">
-    <h3 class="panel__title">{{ 'dashboard.recommended' | translate }}</h3>
-    <div class="module-grid">
-      @for (mod of modules; track mod.titleKey) {
-        <a class="module-card" routerLink="/lessons">
-          <div class="module-card__image module-card__image--{{ mod.accent }}"></div>
-          <div class="module-card__body">
-            <h4>{{ mod.titleKey | translate }}</h4>
-            <p>{{ mod.descriptionKey | translate }}</p>
-            <span class="module-card__cta">
-              {{ 'dashboard.startModule' | translate }}
-              <app-icon name="chevron-right" />
-            </span>
-          </div>
-        </a>
-      }
-    </div>
   </section>
 </main>
 

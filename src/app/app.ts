@@ -9,7 +9,6 @@ function tabForUrl(url: string): NavTab | null {
   const path = url.split('?')[0].split('#')[0];
   if (path === '/') return 'practice';
   if (path.startsWith('/tests')) return 'tests';
-  if (path.startsWith('/lessons')) return 'lessons';
   if (path.startsWith('/statistics')) return 'statistics';
   if (path.startsWith('/profile')) return 'profile';
   if (path.startsWith('/test/')) {
