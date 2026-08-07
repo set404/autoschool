@@ -85,6 +85,20 @@ export class AuthService {
     return this.tokenStorage.read()?.accessToken ?? null;
   }
 
+  uploadAvatar(file: File): Observable<AuthUser> {
+    const formData = new FormData();
+    formData.append('avatar', file);
+    return this.http
+      .post<AuthUser>(`${environment.apiUrl}/auth/me/avatar`, formData)
+      .pipe(tap((user) => this._currentUser.set(user)));
+  }
+
+  removeAvatar(): Observable<AuthUser> {
+    return this.http
+      .delete<AuthUser>(`${environment.apiUrl}/auth/me/avatar`)
+      .pipe(tap((user) => this._currentUser.set(user)));
+  }
+
   clearSession(): void {
     this.tokenStorage.clear();
     this._currentUser.set(null);

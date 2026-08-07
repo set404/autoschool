@@ -72,6 +72,11 @@
 
   "profile.language": "Language",
   "profile.darkMode": "Dark Mode",
+  "profile.changePhoto": "Change Photo",
+  "profile.removePhoto": "Remove Photo",
+  "profile.avatarInvalidType": "Please choose an image file.",
+  "profile.avatarTooLarge": "Image must be smaller than 5MB.",
+  "profile.avatarUploadError": "Something went wrong. Please try again.",
   "profile.logOut": "Log Out",
 
   "auth.loginSubtitle": "Log in to continue your practice.",

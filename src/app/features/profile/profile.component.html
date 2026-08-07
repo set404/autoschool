@@ -2,12 +2,24 @@
 
 <main class="profile">
   <section class="profile-card">
-    <span class="profile-card__avatar"><app-icon name="user" /></span>
+    <button type="button" class="profile-card__avatar" [class.profile-card__avatar--uploading]="uploading()" (click)="openFilePicker()">
+      @if (avatarSrc() && !avatarBroken()) {
+        <img [src]="avatarSrc()" (error)="onAvatarLoadError()" alt="" />
+      } @else {
+        <app-icon name="user" />
+      }
+      <span class="profile-card__avatar-badge"><app-icon name="camera" /></span>
+    </button>
+    <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
     <div>
       <p class="profile-card__name">{{ currentUser()?.name }}</p>
       <p class="profile-card__subtitle">{{ currentUser()?.email }}</p>
     </div>
   </section>
+
+  @if (avatarError()) {
+    <p class="profile-card__error">{{ avatarError()! | translate }}</p>
+  }
 
   @if (currentUser()?.role === 'TEACHER') {
     <section class="settings-list">
@@ -41,6 +53,13 @@
     >
       <span class="settings-row__label">{{ 'profile.darkMode' | translate }}</span>
       <span class="switch" [class.switch--on]="themeService.isDark()"></span>
+    </button>
+    <button type="button" class="settings-row settings-row--button" (click)="openFilePicker()">
+      <span class="settings-row__label">{{ 'profile.changePhoto' | translate }}</span>
+      <app-icon name="chevron-right" />
+    </button>
+    <button type="button" class="settings-row settings-row--button" (click)="removeAvatar()">
+      <span class="settings-row__label">{{ 'profile.removePhoto' | translate }}</span>
     </button>
     <button type="button" class="settings-row settings-row--button" (click)="logout()">
       <span class="settings-row__label">{{ 'profile.logOut' | translate }}</span>

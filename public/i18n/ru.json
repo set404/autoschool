@@ -72,6 +72,11 @@
 
   "profile.language": "Язык",
   "profile.darkMode": "Тёмная тема",
+  "profile.changePhoto": "Изменить фото",
+  "profile.removePhoto": "Удалить фото",
+  "profile.avatarInvalidType": "Пожалуйста, выберите файл изображения.",
+  "profile.avatarTooLarge": "Изображение должно быть меньше 5МБ.",
+  "profile.avatarUploadError": "Что-то пошло не так. Попробуйте снова.",
   "profile.logOut": "Выйти",
 
   "auth.loginSubtitle": "Войдите, чтобы продолжить практику.",

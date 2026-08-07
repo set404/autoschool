@@ -18,6 +18,7 @@
 }
 
 .profile-card__avatar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,6 +29,46 @@
   color: var(--color-heading);
   font-size: 30px;
   flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+  }
+
+  &--uploading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.profile-card__avatar-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-amber);
+  color: #fff;
+  font-size: 12px;
+  border: 2px solid var(--color-surface);
+}
+
+.profile-card__error {
+  margin: -12px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  font-size: 13px;
 }
 
 .profile-card__name {

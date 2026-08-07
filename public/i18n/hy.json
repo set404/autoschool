@@ -72,6 +72,11 @@
 
   "profile.language": "Լեզու",
   "profile.darkMode": "Մուգ ռեժիմ",
+  "profile.changePhoto": "Փոխել լուսանկարը",
+  "profile.removePhoto": "Հեռացնել լուսանկարը",
+  "profile.avatarInvalidType": "Խնդրում ենք ընտրել նկարի ֆայլ:",
+  "profile.avatarTooLarge": "Նկարը պետք է փոքր լինի 5ՄԲ-ից:",
+  "profile.avatarUploadError": "Ինչ-որ բան այն չէ: Խնդրում ենք փորձել կրկին:",
   "profile.logOut": "Դուրս գալ",
 
   "auth.loginSubtitle": "Մուտք գործեք՝ շարունակելու համար:",

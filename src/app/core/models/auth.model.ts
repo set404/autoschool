@@ -6,6 +6,7 @@ export interface AuthUser {
   name: string;
   role: Role;
   createdAt: string;
+  avatarUrl: string;
 }
 
 export interface AuthTokens {

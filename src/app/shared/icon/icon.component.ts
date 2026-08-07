@@ -24,7 +24,8 @@ export type IconName =
   | 'moon'
   | 'warning-sign'
   | 'refresh'
-  | 'list';
+  | 'list'
+  | 'camera';
 
 @Component({
   selector: 'app-icon',
