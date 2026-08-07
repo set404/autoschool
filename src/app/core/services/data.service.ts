@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Question } from '../models/question.model';
 import { TestSummary } from '../models/test.model';
 
@@ -8,32 +9,19 @@ import { TestSummary } from '../models/test.model';
 export class DataService {
   private readonly http = inject(HttpClient);
 
-  private readonly tests$ = this.http
-    .get<TestSummary[]>('data/tests.json')
-    .pipe(shareReplay(1));
-
-  private readonly questions$ = this.http
-    .get<Question[]>('data/questions.json')
-    .pipe(shareReplay(1));
-
   getTests(): Observable<TestSummary[]> {
-    return this.tests$;
+    return this.http.get<TestSummary[]>(`${environment.apiUrl}/tests`);
   }
 
   getTest(testId: string): Observable<TestSummary | undefined> {
-    return this.tests$.pipe(map((tests) => tests.find((t) => t.id === testId)));
+    return this.http
+      .get<TestSummary>(`${environment.apiUrl}/tests/${testId}`)
+      .pipe(catchError(() => of(undefined)));
   }
 
   getQuestionsByIds(ids: string[]): Observable<Question[]> {
-    return this.questions$.pipe(
-      map((questions) => {
-        const byId = new Map(questions.map((q) => [q.id, q]));
-        return ids.map((id) => byId.get(id)).filter((q): q is Question => !!q);
-      }),
-    );
-  }
-
-  getAllQuestions(): Observable<Question[]> {
-    return this.questions$;
+    if (ids.length === 0) return of([]);
+    const params = new HttpParams().set('ids', ids.join(','));
+    return this.http.get<Question[]>(`${environment.apiUrl}/questions`, { params });
   }
 }

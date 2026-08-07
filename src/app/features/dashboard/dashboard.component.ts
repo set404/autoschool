@@ -8,6 +8,7 @@ import { TranslatePipe } from '../../core/services/translate.pipe';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { TopBarComponent } from '../../shared/top-bar/top-bar.component';
 import { ProgressService } from '../../core/services/progress.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,8 +27,11 @@ import { ProgressService } from '../../core/services/progress.service';
 export class DashboardComponent {
   private readonly dataService = inject(DataService);
   protected readonly progress = inject(ProgressService);
+  private readonly authService = inject(AuthService);
 
   readonly tests = toSignal(this.dataService.getTests(), { initialValue: [] });
+
+  protected readonly firstName = computed(() => this.authService.currentUser()?.name.split(' ')[0] ?? '');
 
   protected readonly lessonsCompleted = 12;
   protected readonly lessonsTotal = 20;

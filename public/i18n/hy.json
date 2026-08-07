@@ -28,7 +28,7 @@
   "lang.en": "English",
   "lang.ru": "Русский",
 
-  "dashboard.welcome": "Բարի վերադարձ, Ալեքս:",
+  "dashboard.welcome": "Բարի վերադարձ, {name}:",
   "dashboard.progressBlurb": "Դուք 60%-ով մոտեցել եք ձեր վարորդական իրավունքին: Շարունակեք նույն ոգով:",
   "dashboard.quickStart": "Անցնել թեստերին",
   "dashboard.lessonsCompleted": "Ավարտված դասեր",
@@ -70,8 +70,40 @@
   "statistics.practiceMissed": "Կրկնել այս հարցերը",
   "statistics.missedEmpty": "Դուք սխալ պատասխանված հարցեր չունեք: Այդպես պահեք:",
 
-  "profile.name": "Ալեքս Ավետիսյան",
-  "profile.subtitle": "Ուսանող վարորդ",
   "profile.language": "Լեզու",
-  "profile.darkMode": "Մուգ ռեժիմ"
+  "profile.darkMode": "Մուգ ռեժիմ",
+  "profile.logOut": "Դուրս գալ",
+
+  "auth.loginSubtitle": "Մուտք գործեք՝ շարունակելու համար:",
+  "auth.registerSubtitle": "Ստեղծեք հաշիվ՝ պարապելը սկսելու համար:",
+  "auth.name": "Անուն",
+  "auth.email": "Էլ. փոստ",
+  "auth.password": "Գաղտնաբառ",
+  "auth.logIn": "Մուտք",
+  "auth.loggingIn": "Մուտք է կատարվում…",
+  "auth.register": "Ստեղծել հաշիվ",
+  "auth.registering": "Հաշիվը ստեղծվում է…",
+  "auth.noAccount": "Հաշիվ չունե՞ք:",
+  "auth.haveAccount": "Արդեն ունե՞ք հաշիվ:",
+  "auth.loginError": "Սխալ էլ. փոստ կամ գաղտնաբառ:",
+  "auth.registerError": "Ինչ-որ բան այն չէ: Խնդրում ենք փորձել կրկին:",
+  "auth.emailTaken": "Այս էլ. փոստով հաշիվն արդեն գոյություն ունի:",
+
+  "teacher.heading": "Իմ սաները",
+  "teacher.students": "Սաներ",
+  "teacher.noStudents": "Ձեզ դեռ սաներ նշանակված չեն:",
+
+  "admin.heading": "Ադմինիստրատոր",
+  "admin.users": "Օգտատերեր",
+  "admin.assignments": "Նշանակումներ",
+  "admin.createUser": "Ստեղծել օգտատեր",
+  "admin.createUserError": "Չհաջողվեց ստեղծել օգտատերը: Հնարավոր է՝ էլ. փոստն արդեն օգտագործվում է:",
+  "admin.role": "Դեր",
+  "admin.roleStudent": "Սան",
+  "admin.roleTeacher": "Հրահանգիչ",
+  "admin.roleAdmin": "Ադմինիստրատոր",
+  "admin.createAssignment": "Նշանակել սան հրահանգչին",
+  "admin.assignmentSelectError": "Ընտրեք և՛ հրահանգիչ, և՛ սան:",
+  "admin.createAssignmentError": "Չհաջողվեց ստեղծել նշանակումը:",
+  "admin.noAssignments": "Հրահանգիչ-սան նշանակումներ դեռ չկան:"
 }

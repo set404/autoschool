@@ -3,6 +3,7 @@ import { Question } from '../models/question.model';
 import { TestSummary } from '../models/test.model';
 import { ProgressService } from './progress.service';
 import { MissedQuestionsService } from './missed-questions.service';
+import { MISSED_TEST_ID } from '../constants';
 
 export const SECONDS_PER_QUESTION = 60;
 
@@ -100,26 +101,29 @@ export class TestSessionService {
     }
   }
 
+  /**
+   * Client-side `score`/`elapsedSeconds` above drive the instant Results/Review UI so
+   * navigation doesn't block on a network round-trip. The server recomputes the score
+   * authoritatively from `POST /attempts` and that becomes the record of truth; this
+   * submission runs as a fire-and-forget side effect (see `ProgressService.submitStatus`).
+   */
   finish(): void {
     if (this._finishedAt() !== undefined) return;
     this._finishedAt.set(Date.now());
 
     const test = this._test();
     if (test) {
-      this.progress.record({
-        testId: test.id,
-        testTitle: test.title,
-        score: this.score(),
-        total: this.totalQuestions(),
-        elapsedSeconds: this.elapsedSeconds(),
-      });
+      this.progress.recordAndSync(
+        {
+          testId: test.id === MISSED_TEST_ID ? null : test.id,
+          testTitle: test.title,
+          questionIds: this._questions().map((q) => q.id),
+          answers: this._answers(),
+          elapsedSeconds: this.elapsedSeconds(),
+        },
+        () => this.missedQuestions.refresh(),
+      );
     }
-
-    const correctOptionByQuestionId: Record<string, string> = {};
-    for (const q of this._questions()) {
-      correctOptionByQuestionId[q.id] = q.correctOptionId;
-    }
-    this.missedQuestions.recordAnswers(this._answers(), correctOptionByQuestionId);
   }
 
   isActiveFor(testId: string): boolean {

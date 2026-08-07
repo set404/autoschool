@@ -46,7 +46,7 @@ export class AllTestsComponent {
   protected readonly filter = signal<FilterOption>('all');
 
   private readonly items = computed<TestListItem[]>(() => {
-    const latestByTestId = new Map<string, TestAttempt>();
+    const latestByTestId = new Map<string | null, TestAttempt>();
     for (const attempt of this.progress.attempts()) {
       if (!latestByTestId.has(attempt.testId)) {
         latestByTestId.set(attempt.testId, attempt);

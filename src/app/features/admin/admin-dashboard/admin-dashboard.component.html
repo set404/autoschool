@@ -1,0 +1,144 @@
+<app-top-bar [title]="'admin.heading' | translate" />
+
+<main class="admin">
+  <div class="tabs">
+    <button type="button" class="tabs__btn" [class.tabs__btn--active]="tab() === 'users'" (click)="setTab('users')">
+      {{ 'admin.users' | translate }}
+    </button>
+    <button
+      type="button"
+      class="tabs__btn"
+      [class.tabs__btn--active]="tab() === 'assignments'"
+      (click)="setTab('assignments')"
+    >
+      {{ 'admin.assignments' | translate }}
+    </button>
+  </div>
+
+  @if (tab() === 'users') {
+    <section class="panel">
+      <h3>{{ 'admin.createUser' | translate }}</h3>
+
+      @if (createUserError()) {
+        <p class="form-error">{{ createUserError()! | translate }}</p>
+      }
+
+      <div class="form-grid">
+        <label class="field">
+          <span class="field__label">{{ 'auth.name' | translate }}</span>
+          <input type="text" [value]="newUserName()" (input)="newUserName.set($any($event.target).value)" />
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'auth.email' | translate }}</span>
+          <input type="email" [value]="newUserEmail()" (input)="newUserEmail.set($any($event.target).value)" />
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'auth.password' | translate }}</span>
+          <input
+            type="password"
+            [value]="newUserPassword()"
+            (input)="newUserPassword.set($any($event.target).value)"
+          />
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'admin.role' | translate }}</span>
+          <select [value]="newUserRole()" (change)="newUserRole.set($any($event.target).value)">
+            <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
+            <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
+            <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
+          </select>
+        </label>
+      </div>
+
+      <button type="button" class="submit-btn" [disabled]="creatingUser()" (click)="createUser()">
+        {{ 'admin.createUser' | translate }}
+      </button>
+    </section>
+
+    <section class="panel">
+      <h3>{{ 'admin.users' | translate }} ({{ users().length }})</h3>
+
+      <ul class="user-list">
+        @for (user of users(); track user.id) {
+          <li class="user-row">
+            <span class="user-row__avatar"><app-icon name="user" /></span>
+            <span class="user-row__info">
+              <span class="user-row__name">{{ user.name }}</span>
+              <span class="user-row__email">{{ user.email }}</span>
+            </span>
+            <select class="user-row__role" [value]="user.role" (change)="changeRole(user, $any($event.target).value)">
+              <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
+              <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
+              <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
+            </select>
+            <button type="button" class="icon-btn icon-btn--danger" (click)="deleteUser(user)">
+              <app-icon name="x-circle" />
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+  } @else {
+    <section class="panel">
+      <h3>{{ 'admin.createAssignment' | translate }}</h3>
+
+      @if (createAssignmentError()) {
+        <p class="form-error">{{ createAssignmentError()! | translate }}</p>
+      }
+
+      <div class="form-grid">
+        <label class="field">
+          <span class="field__label">{{ 'admin.roleTeacher' | translate }}</span>
+          <select
+            [value]="newAssignmentTeacherId()"
+            (change)="newAssignmentTeacherId.set($any($event.target).value)"
+          >
+            <option value="">—</option>
+            @for (teacher of teachers(); track teacher.id) {
+              <option [value]="teacher.id">{{ teacher.name }}</option>
+            }
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'admin.roleStudent' | translate }}</span>
+          <select
+            [value]="newAssignmentStudentId()"
+            (change)="newAssignmentStudentId.set($any($event.target).value)"
+          >
+            <option value="">—</option>
+            @for (student of students(); track student.id) {
+              <option [value]="student.id">{{ student.name }}</option>
+            }
+          </select>
+        </label>
+      </div>
+
+      <button type="button" class="submit-btn" [disabled]="creatingAssignment()" (click)="createAssignment()">
+        {{ 'admin.createAssignment' | translate }}
+      </button>
+    </section>
+
+    <section class="panel">
+      <h3>{{ 'admin.assignments' | translate }} ({{ assignments().length }})</h3>
+
+      @if (assignments().length === 0) {
+        <p class="empty-state">{{ 'admin.noAssignments' | translate }}</p>
+      } @else {
+        <ul class="assignment-list">
+          @for (assignment of assignments(); track assignment.id) {
+            <li class="assignment-row">
+              <div class="assignment-row__info">
+                <span class="assignment-row__teacher">{{ assignment.teacher.name }}</span>
+                <app-icon name="arrow-right" />
+                <span class="assignment-row__student">{{ assignment.student.name }}</span>
+              </div>
+              <button type="button" class="icon-btn icon-btn--danger" (click)="removeAssignment(assignment)">
+                <app-icon name="x-circle" />
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</main>

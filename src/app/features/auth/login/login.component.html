@@ -1,0 +1,41 @@
+<main class="auth-page">
+  <form class="auth-card" (submit)="$event.preventDefault(); submit()">
+    <h1 class="auth-card__title">{{ 'common.appName' | translate }}</h1>
+    <p class="auth-card__subtitle">{{ 'auth.loginSubtitle' | translate }}</p>
+
+    @if (errorMessage()) {
+      <p class="auth-card__error">{{ errorMessage()! | translate }}</p>
+    }
+
+    <label class="auth-field">
+      <span class="auth-field__label">{{ 'auth.email' | translate }}</span>
+      <input
+        type="email"
+        autocomplete="email"
+        required
+        [value]="email()"
+        (input)="email.set($any($event.target).value)"
+      />
+    </label>
+
+    <label class="auth-field">
+      <span class="auth-field__label">{{ 'auth.password' | translate }}</span>
+      <input
+        type="password"
+        autocomplete="current-password"
+        required
+        [value]="password()"
+        (input)="password.set($any($event.target).value)"
+      />
+    </label>
+
+    <button type="submit" class="auth-submit" [disabled]="submitting()">
+      {{ (submitting() ? 'auth.loggingIn' : 'auth.logIn') | translate }}
+    </button>
+
+    <p class="auth-card__footer">
+      {{ 'auth.noAccount' | translate }}
+      <a routerLink="/register">{{ 'auth.register' | translate }}</a>
+    </p>
+  </form>
+</main>

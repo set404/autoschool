@@ -4,10 +4,28 @@
   <section class="profile-card">
     <span class="profile-card__avatar"><app-icon name="user" /></span>
     <div>
-      <p class="profile-card__name">{{ 'profile.name' | translate }}</p>
-      <p class="profile-card__subtitle">{{ 'profile.subtitle' | translate }}</p>
+      <p class="profile-card__name">{{ currentUser()?.name }}</p>
+      <p class="profile-card__subtitle">{{ currentUser()?.email }}</p>
     </div>
   </section>
+
+  @if (currentUser()?.role === 'TEACHER') {
+    <section class="settings-list">
+      <a class="settings-row settings-row--button" routerLink="/teacher">
+        <span class="settings-row__label">{{ 'teacher.heading' | translate }}</span>
+        <app-icon name="chevron-right" />
+      </a>
+    </section>
+  }
+
+  @if (currentUser()?.role === 'ADMIN') {
+    <section class="settings-list">
+      <a class="settings-row settings-row--button" routerLink="/admin">
+        <span class="settings-row__label">{{ 'admin.heading' | translate }}</span>
+        <app-icon name="chevron-right" />
+      </a>
+    </section>
+  }
 
   <section class="settings-list">
     <div class="settings-row">
@@ -23,6 +41,9 @@
     >
       <span class="settings-row__label">{{ 'profile.darkMode' | translate }}</span>
       <span class="switch" [class.switch--on]="themeService.isDark()"></span>
+    </button>
+    <button type="button" class="settings-row settings-row--button" (click)="logout()">
+      <span class="settings-row__label">{{ 'profile.logOut' | translate }}</span>
     </button>
   </section>
 </main>

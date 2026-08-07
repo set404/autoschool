@@ -28,7 +28,7 @@
   "lang.en": "English",
   "lang.ru": "Русский",
 
-  "dashboard.welcome": "Welcome back, Alex!",
+  "dashboard.welcome": "Welcome back, {name}!",
   "dashboard.progressBlurb": "You're 60% of the way to your driving license. Keep up the great momentum!",
   "dashboard.quickStart": "Go to Tests",
   "dashboard.lessonsCompleted": "Lessons Completed",
@@ -70,8 +70,40 @@
   "statistics.practiceMissed": "Practice These",
   "statistics.missedEmpty": "No missed questions — keep it up!",
 
-  "profile.name": "Alex Avetisyan",
-  "profile.subtitle": "Student Driver",
   "profile.language": "Language",
-  "profile.darkMode": "Dark Mode"
+  "profile.darkMode": "Dark Mode",
+  "profile.logOut": "Log Out",
+
+  "auth.loginSubtitle": "Log in to continue your practice.",
+  "auth.registerSubtitle": "Create an account to start practicing.",
+  "auth.name": "Name",
+  "auth.email": "Email",
+  "auth.password": "Password",
+  "auth.logIn": "Log In",
+  "auth.loggingIn": "Logging in…",
+  "auth.register": "Create Account",
+  "auth.registering": "Creating account…",
+  "auth.noAccount": "Don't have an account?",
+  "auth.haveAccount": "Already have an account?",
+  "auth.loginError": "Incorrect email or password.",
+  "auth.registerError": "Something went wrong. Please try again.",
+  "auth.emailTaken": "An account with this email already exists.",
+
+  "teacher.heading": "My Students",
+  "teacher.students": "Students",
+  "teacher.noStudents": "No students are assigned to you yet.",
+
+  "admin.heading": "Admin",
+  "admin.users": "Users",
+  "admin.assignments": "Assignments",
+  "admin.createUser": "Create User",
+  "admin.createUserError": "Couldn't create user. The email may already be in use.",
+  "admin.role": "Role",
+  "admin.roleStudent": "Student",
+  "admin.roleTeacher": "Teacher",
+  "admin.roleAdmin": "Admin",
+  "admin.createAssignment": "Assign Student to Teacher",
+  "admin.assignmentSelectError": "Choose both a teacher and a student.",
+  "admin.createAssignmentError": "Couldn't create assignment.",
+  "admin.noAssignments": "No teacher-student assignments yet."
 }

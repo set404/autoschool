@@ -4,7 +4,7 @@
   <section class="hero">
     <div class="hero__decoration hero__decoration--top"></div>
     <div class="hero__decoration hero__decoration--bottom"></div>
-    <h2 class="hero__title">{{ 'dashboard.welcome' | translate }}</h2>
+    <h2 class="hero__title">{{ 'dashboard.welcome' | translate: { name: firstName() } }}</h2>
     <p class="hero__subtitle">{{ 'dashboard.progressBlurb' | translate }}</p>
 
     @if (firstTestId) {

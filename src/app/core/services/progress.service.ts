@@ -1,27 +1,28 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { catchError, of, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { TestAttempt } from '../models/attempt.model';
 import { LocalizedText } from '../models/i18n.model';
-import { PASS_RATIO } from '../constants';
 
-const STORAGE_KEY = 'autoschool.progress.v1';
-
-function loadAttempts(): TestAttempt[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+export interface SubmitAttemptParams {
+  testId: string | null;
+  testTitle: LocalizedText;
+  questionIds: string[];
+  answers: Record<string, string>;
+  elapsedSeconds: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
-  private readonly _attempts = signal<TestAttempt[]>(loadAttempts());
+  private readonly http = inject(HttpClient);
+
+  private readonly _attempts = signal<TestAttempt[]>([]);
+  private readonly _submitStatus = signal<'idle' | 'pending' | 'ok' | 'error'>('idle');
 
   /** Most recent attempt first. */
   readonly attempts = this._attempts.asReadonly();
+  readonly submitStatus = this._submitStatus.asReadonly();
 
   readonly testsTaken = computed(() => this._attempts().length);
 
@@ -44,35 +45,36 @@ export class ProgressService {
     return best;
   });
 
-  record(params: {
-    testId: string;
-    testTitle: LocalizedText;
-    score: number;
-    total: number;
-    elapsedSeconds: number;
-  }): void {
-    const percentage = params.total > 0 ? Math.round((params.score / params.total) * 100) : 0;
-    const attempt: TestAttempt = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      testId: params.testId,
-      testTitle: params.testTitle,
-      score: params.score,
-      total: params.total,
-      percentage,
-      passed: percentage >= Math.round(PASS_RATIO * 100),
-      elapsedSeconds: params.elapsedSeconds,
-      completedAt: Date.now(),
-    };
-    const next = [attempt, ...this._attempts()];
-    this._attempts.set(next);
-    this.persist(next);
+  constructor() {
+    this.refresh();
   }
 
-  private persist(attempts: TestAttempt[]): void {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(attempts));
-    } catch {
-      // localStorage unavailable (e.g. private browsing quota) — progress just won't persist.
-    }
+  refresh(): void {
+    this.http
+      .get<TestAttempt[]>(`${environment.apiUrl}/attempts`)
+      .pipe(catchError(() => of([])))
+      .subscribe((attempts) => this._attempts.set(attempts));
+  }
+
+  /** Submits the attempt to the server; the server recomputes the score authoritatively. */
+  recordAndSync(params: SubmitAttemptParams, onSuccess?: () => void): void {
+    this._submitStatus.set('pending');
+    this.http
+      .post<TestAttempt>(`${environment.apiUrl}/attempts`, params)
+      .pipe(
+        tap((attempt) => {
+          this._attempts.update((attempts) => [attempt, ...attempts]);
+        }),
+        catchError(() => {
+          this._submitStatus.set('error');
+          return of(null);
+        }),
+      )
+      .subscribe((attempt) => {
+        if (attempt) {
+          this._submitStatus.set('ok');
+          onSuccess?.();
+        }
+      });
   }
 }

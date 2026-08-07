@@ -1,0 +1,79 @@
+<app-top-bar [title]="'teacher.heading' | translate" />
+
+<main class="teacher">
+  <section class="panel">
+    <h3>{{ 'teacher.students' | translate }} ({{ students().length }})</h3>
+
+    @if (students().length === 0) {
+      <p class="empty-state">{{ 'teacher.noStudents' | translate }}</p>
+    } @else {
+      <ul class="student-list">
+        @for (student of students(); track student.id) {
+          <li>
+            <button
+              type="button"
+              class="student-row"
+              [class.student-row--active]="selectedStudent()?.id === student.id"
+              (click)="selectStudent(student)"
+            >
+              <span class="student-row__avatar"><app-icon name="user" /></span>
+              <span class="student-row__info">
+                <span class="student-row__name">{{ student.name }}</span>
+                <span class="student-row__email">{{ student.email }}</span>
+              </span>
+              <app-icon name="chevron-right" />
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+  @if (selectedStudent(); as student) {
+    <section class="panel">
+      <h3>{{ student.name }}</h3>
+
+      @if (stats(); as s) {
+        <div class="overview">
+          <div class="overview__tile">
+            <app-icon name="quiz" />
+            <span class="overview__value">{{ s.testsTaken }}</span>
+            <span class="overview__label">{{ 'statistics.testsTaken' | translate }}</span>
+          </div>
+          <div class="overview__tile">
+            <app-icon name="chart-bar" />
+            <span class="overview__value">{{ s.averageScorePercent }}%</span>
+            <span class="overview__label">{{ 'statistics.avgScore' | translate }}</span>
+          </div>
+          <div class="overview__tile">
+            <app-icon name="x-circle" />
+            <span class="overview__value">{{ s.missedQuestionCount }}</span>
+            <span class="overview__label">{{ 'statistics.missedQuestions' | translate }}</span>
+          </div>
+        </div>
+      }
+
+      <h4 class="attempts-heading">{{ 'statistics.recentAttempts' | translate }}</h4>
+      @if (attempts().length === 0) {
+        <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
+      } @else {
+        <ul class="attempt-list">
+          @for (attempt of attempts(); track attempt.id) {
+            <li class="attempt-item">
+              <div class="attempt-item__lead">
+                <span class="attempt-item__badge" [class.attempt-item__badge--fail]="!attempt.passed">
+                  <app-icon [name]="attempt.passed ? 'check-circle' : 'x-circle'" />
+                </span>
+                <div>
+                  <p class="attempt-item__title">{{ attempt.testTitle | localize }}</p>
+                  <p class="attempt-item__date">{{ attempt.completedAt | date: 'mediumDate' }}</p>
+                </div>
+              </div>
+              <span class="attempt-item__score">{{ attempt.score }}/{{ attempt.total }}</span>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</main>

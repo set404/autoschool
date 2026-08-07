@@ -28,7 +28,7 @@
   "lang.en": "English",
   "lang.ru": "Русский",
 
-  "dashboard.welcome": "С возвращением, Алекс!",
+  "dashboard.welcome": "С возвращением, {name}!",
   "dashboard.progressBlurb": "Вы прошли 60% пути к получению водительских прав. Продолжайте в том же духе!",
   "dashboard.quickStart": "Перейти к тестам",
   "dashboard.lessonsCompleted": "Пройдено уроков",
@@ -70,8 +70,40 @@
   "statistics.practiceMissed": "Повторить их",
   "statistics.missedEmpty": "Нет вопросов с ошибками — так держать!",
 
-  "profile.name": "Алекс Аветисян",
-  "profile.subtitle": "Учащийся водитель",
   "profile.language": "Язык",
-  "profile.darkMode": "Тёмная тема"
+  "profile.darkMode": "Тёмная тема",
+  "profile.logOut": "Выйти",
+
+  "auth.loginSubtitle": "Войдите, чтобы продолжить практику.",
+  "auth.registerSubtitle": "Создайте аккаунт, чтобы начать практику.",
+  "auth.name": "Имя",
+  "auth.email": "Эл. почта",
+  "auth.password": "Пароль",
+  "auth.logIn": "Войти",
+  "auth.loggingIn": "Выполняется вход…",
+  "auth.register": "Создать аккаунт",
+  "auth.registering": "Создание аккаунта…",
+  "auth.noAccount": "Нет аккаунта?",
+  "auth.haveAccount": "Уже есть аккаунт?",
+  "auth.loginError": "Неверный email или пароль.",
+  "auth.registerError": "Что-то пошло не так. Попробуйте снова.",
+  "auth.emailTaken": "Аккаунт с этой почтой уже существует.",
+
+  "teacher.heading": "Мои ученики",
+  "teacher.students": "Ученики",
+  "teacher.noStudents": "Вам пока не назначены ученики.",
+
+  "admin.heading": "Администрирование",
+  "admin.users": "Пользователи",
+  "admin.assignments": "Назначения",
+  "admin.createUser": "Создать пользователя",
+  "admin.createUserError": "Не удалось создать пользователя. Возможно, email уже используется.",
+  "admin.role": "Роль",
+  "admin.roleStudent": "Ученик",
+  "admin.roleTeacher": "Преподаватель",
+  "admin.roleAdmin": "Администратор",
+  "admin.createAssignment": "Назначить ученика преподавателю",
+  "admin.assignmentSelectError": "Выберите и преподавателя, и ученика.",
+  "admin.createAssignmentError": "Не удалось создать назначение.",
+  "admin.noAssignments": "Пока нет назначений преподаватель-ученик."
 }
