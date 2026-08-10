@@ -36,7 +36,21 @@
     </button>
   </div>
 
-  @if (filteredItems().length === 0) {
+  @if (loading()) {
+    <ul class="test-list">
+      @for (row of skeletonRows; track row) {
+        <li>
+          <div class="test-item">
+            <app-skeleton [circle]="true" width="40px" height="40px" />
+            <div class="test-item__body" style="display: flex; flex-direction: column; gap: 6px">
+              <app-skeleton width="55%" height="16px" />
+              <app-skeleton width="40%" height="12px" />
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  } @else if (filteredItems().length === 0) {
     <p class="empty-state">{{ 'allTests.empty' | translate }}</p>
   } @else {
     <ul class="test-list">

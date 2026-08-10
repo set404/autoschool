@@ -3,6 +3,7 @@ import { catchError, of } from 'rxjs';
 import { TranslatePipe } from '../../../core/services/translate.pipe';
 import { IconComponent } from '../../../shared/icon/icon.component';
 import { TopBarComponent } from '../../../shared/top-bar/top-bar.component';
+import { SkeletonComponent } from '../../../shared/skeleton/skeleton.component';
 import { AdminService } from '../../../core/services/admin.service';
 import { AuthUser, Role } from '../../../core/models/auth.model';
 import { Assignment } from '../../../core/models/assignment.model';
@@ -12,16 +13,19 @@ type AdminTab = 'users' | 'assignments';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [TranslatePipe, IconComponent, TopBarComponent],
+  imports: [TranslatePipe, IconComponent, TopBarComponent, SkeletonComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
 })
 export class AdminDashboardComponent {
   private readonly adminService = inject(AdminService);
 
+  protected readonly skeletonRows = [0, 1, 2];
   protected readonly tab = signal<AdminTab>('users');
   protected readonly users = signal<AuthUser[]>([]);
+  protected readonly usersLoading = signal(true);
   protected readonly assignments = signal<Assignment[]>([]);
+  protected readonly assignmentsLoading = signal(true);
 
   protected readonly teachers = computed(() => this.users().filter((u) => u.role === 'TEACHER'));
   protected readonly students = computed(() => this.users().filter((u) => u.role === 'STUDENT'));
@@ -48,17 +52,25 @@ export class AdminDashboardComponent {
   }
 
   private refreshUsers(): void {
+    this.usersLoading.set(true);
     this.adminService
       .listUsers()
       .pipe(catchError(() => of([])))
-      .subscribe((users) => this.users.set(users));
+      .subscribe((users) => {
+        this.users.set(users);
+        this.usersLoading.set(false);
+      });
   }
 
   private refreshAssignments(): void {
+    this.assignmentsLoading.set(true);
     this.adminService
       .listAssignments()
       .pipe(catchError(() => of([])))
-      .subscribe((assignments) => this.assignments.set(assignments));
+      .subscribe((assignments) => {
+        this.assignments.set(assignments);
+        this.assignmentsLoading.set(false);
+      });
   }
 
   createUser(): void {

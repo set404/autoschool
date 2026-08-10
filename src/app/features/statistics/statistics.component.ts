@@ -6,6 +6,7 @@ import { LocalizePipe } from '../../core/services/localize.pipe';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { TopBarComponent } from '../../shared/top-bar/top-bar.component';
 import { AttemptCommentsComponent } from '../../shared/attempt-comments/attempt-comments.component';
+import { SkeletonComponent } from '../../shared/skeleton/skeleton.component';
 import { ProgressService } from '../../core/services/progress.service';
 import { MissedQuestionsService } from '../../core/services/missed-questions.service';
 import { MISSED_TEST_ID } from '../../core/constants';
@@ -21,6 +22,7 @@ import { MISSED_TEST_ID } from '../../core/constants';
     IconComponent,
     TopBarComponent,
     AttemptCommentsComponent,
+    SkeletonComponent,
   ],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss',
@@ -32,6 +34,7 @@ export class StatisticsComponent {
   protected readonly missedTestRoute = ['/test', MISSED_TEST_ID];
   protected readonly recentAttempts = this.progress.attempts;
   protected readonly missedQuestionList = this.missedQuestionsService.questions;
+  protected readonly skeletonRows = [0, 1, 2];
 
   protected readonly expandedAttemptId = signal<string | null>(null);
 

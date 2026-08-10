@@ -1,9 +1,10 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
-import { Subject, catchError, combineLatest, of, startWith, switchMap } from 'rxjs';
+import { Subject, catchError, combineLatest, of, startWith, switchMap, tap } from 'rxjs';
 import { TranslatePipe } from '../../core/services/translate.pipe';
 import { IconComponent } from '../icon/icon.component';
+import { SkeletonComponent } from '../skeleton/skeleton.component';
 import { CommentsService } from '../../core/services/comments.service';
 import { TeacherService } from '../../core/services/teacher.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -12,7 +13,7 @@ import { Comment } from '../../core/models/comment.model';
 @Component({
   selector: 'app-attempt-comments',
   standalone: true,
-  imports: [DatePipe, TranslatePipe, IconComponent],
+  imports: [DatePipe, TranslatePipe, IconComponent, SkeletonComponent],
   templateUrl: './attempt-comments.component.html',
   styleUrl: './attempt-comments.component.scss',
 })
@@ -30,10 +31,14 @@ export class AttemptCommentsComponent {
   private readonly refresh$ = new Subject<void>();
 
   protected readonly currentUserId = computed(() => this.authService.currentUser()?.id);
+  protected readonly skeletonRows = [0, 1];
 
+  protected readonly loading = signal(true);
   protected readonly comments = toSignal(
     combineLatest([toObservable(this.attemptId), this.refresh$.pipe(startWith(undefined))]).pipe(
+      tap(() => this.loading.set(true)),
       switchMap(([id]) => this.commentsService.list(id).pipe(catchError(() => of([] as Comment[])))),
+      tap(() => this.loading.set(false)),
     ),
     { initialValue: [] as Comment[] },
   );

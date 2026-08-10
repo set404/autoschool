@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/services/data.service';
 import { ProgressService } from '../../core/services/progress.service';
@@ -7,6 +6,7 @@ import { LocalizePipe } from '../../core/services/localize.pipe';
 import { TranslatePipe } from '../../core/services/translate.pipe';
 import { IconComponent, IconName } from '../../shared/icon/icon.component';
 import { TopBarComponent } from '../../shared/top-bar/top-bar.component';
+import { SkeletonComponent } from '../../shared/skeleton/skeleton.component';
 import { TestSummary } from '../../core/models/test.model';
 import { TestAttempt } from '../../core/models/attempt.model';
 
@@ -34,7 +34,7 @@ const STATUS_LABEL_KEY: Record<TestStatus, string> = {
 @Component({
   selector: 'app-all-tests',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, LocalizePipe, IconComponent, TopBarComponent],
+  imports: [RouterLink, TranslatePipe, LocalizePipe, IconComponent, TopBarComponent, SkeletonComponent],
   templateUrl: './all-tests.component.html',
   styleUrl: './all-tests.component.scss',
 })
@@ -42,7 +42,9 @@ export class AllTestsComponent {
   private readonly dataService = inject(DataService);
   private readonly progress = inject(ProgressService);
 
-  private readonly tests = toSignal(this.dataService.getTests(), { initialValue: [] });
+  protected readonly loading = this.dataService.testsLoading;
+  protected readonly skeletonRows = [0, 1, 2, 3];
+  private readonly tests = this.dataService.tests;
   protected readonly filter = signal<FilterOption>('all');
 
   private readonly items = computed<TestListItem[]>(() => {

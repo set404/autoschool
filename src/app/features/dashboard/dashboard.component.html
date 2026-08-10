@@ -42,7 +42,22 @@
       <h3 class="panel__title">{{ 'dashboard.recentTests' | translate }}</h3>
       <a class="panel__link" routerLink="/statistics">{{ 'dashboard.viewAll' | translate }}</a>
     </div>
-    @if (recentTests().length === 0) {
+    @if (progress.loading()) {
+      <ul class="recent-list">
+        @for (row of skeletonRows; track row) {
+          <li class="recent-item">
+            <div class="recent-item__lead">
+              <app-skeleton [circle]="true" width="40px" height="40px" />
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="120px" height="16px" />
+                <app-skeleton width="80px" height="12px" />
+              </div>
+            </div>
+            <app-skeleton width="40px" height="16px" />
+          </li>
+        }
+      </ul>
+    } @else if (recentTests().length === 0) {
       <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
     } @else {
       <ul class="recent-list">

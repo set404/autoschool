@@ -1,7 +1,19 @@
 <div class="comments">
   <h4 class="comments__heading"><app-icon name="comment" /> {{ 'comments.heading' | translate }}</h4>
 
-  @if (comments().length === 0) {
+  @if (loading()) {
+    <ul class="comments__list">
+      @for (row of skeletonRows; track row) {
+        <li class="comments__item">
+          <div class="comments__item-head" style="gap: 8px">
+            <app-skeleton width="80px" height="12px" />
+            <app-skeleton width="60px" height="12px" />
+          </div>
+          <app-skeleton width="90%" height="14px" />
+        </li>
+      }
+    </ul>
+  } @else if (comments().length === 0) {
     <p class="comments__empty">{{ 'comments.empty' | translate }}</p>
   } @else {
     <ul class="comments__list">

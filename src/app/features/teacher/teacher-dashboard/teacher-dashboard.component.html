@@ -4,7 +4,21 @@
   <section class="panel">
     <h3>{{ 'teacher.students' | translate }} ({{ students().length }})</h3>
 
-    @if (students().length === 0) {
+    @if (studentsLoading()) {
+      <ul class="student-list">
+        @for (row of skeletonRows; track row) {
+          <li>
+            <div class="student-row">
+              <app-skeleton [circle]="true" width="40px" height="40px" />
+              <span class="student-row__info" style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="140px" height="16px" />
+                <app-skeleton width="180px" height="12px" />
+              </span>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (students().length === 0) {
       <p class="empty-state">{{ 'teacher.noStudents' | translate }}</p>
     } @else {
       <ul class="student-list">
@@ -33,7 +47,17 @@
     <section class="panel">
       <h3>{{ student.name }}</h3>
 
-      @if (stats(); as s) {
+      @if (statsLoading()) {
+        <div class="overview">
+          @for (row of [0, 1, 2]; track row) {
+            <div class="overview__tile" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+              <app-skeleton [circle]="true" width="24px" height="24px" />
+              <app-skeleton width="32px" height="18px" />
+              <app-skeleton width="64px" height="12px" />
+            </div>
+          }
+        </div>
+      } @else if (stats(); as s) {
         <div class="overview">
           <div class="overview__tile">
             <app-icon name="quiz" />
@@ -54,7 +78,24 @@
       }
 
       <h4 class="attempts-heading">{{ 'statistics.recentAttempts' | translate }}</h4>
-      @if (attempts().length === 0) {
+      @if (attemptsLoading()) {
+        <ul class="attempt-list">
+          @for (row of skeletonRows; track row) {
+            <li>
+              <div class="attempt-item">
+                <div class="attempt-item__lead">
+                  <app-skeleton [circle]="true" width="40px" height="40px" />
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <app-skeleton width="140px" height="16px" />
+                    <app-skeleton width="90px" height="12px" />
+                  </div>
+                </div>
+                <app-skeleton width="40px" height="16px" />
+              </div>
+            </li>
+          }
+        </ul>
+      } @else if (attempts().length === 0) {
         <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
       } @else {
         <ul class="attempt-list">

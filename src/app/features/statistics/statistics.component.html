@@ -29,7 +29,16 @@
       }
     </div>
 
-    @if (missedQuestionList().length === 0) {
+    @if (missedQuestionsService.loading()) {
+      <ul class="missed-list">
+        @for (row of skeletonRows; track row) {
+          <li class="missed-item">
+            <app-skeleton [circle]="true" width="20px" height="20px" />
+            <app-skeleton width="70%" height="14px" />
+          </li>
+        }
+      </ul>
+    } @else if (missedQuestionList().length === 0) {
       <p class="empty-state">{{ 'statistics.missedEmpty' | translate }}</p>
     } @else {
       <ul class="missed-list">
@@ -46,7 +55,24 @@
   <section class="panel">
     <h3>{{ 'statistics.recentAttempts' | translate }}</h3>
 
-    @if (recentAttempts().length === 0) {
+    @if (progress.loading()) {
+      <ul class="attempt-list">
+        @for (row of skeletonRows; track row) {
+          <li>
+            <div class="attempt-item">
+              <div class="attempt-item__lead">
+                <app-skeleton [circle]="true" width="40px" height="40px" />
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <app-skeleton width="140px" height="16px" />
+                  <app-skeleton width="90px" height="12px" />
+                </div>
+              </div>
+              <app-skeleton width="40px" height="16px" />
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (recentAttempts().length === 0) {
       <p class="empty-state">{{ 'statistics.empty' | translate }}</p>
     } @else {
       <ul class="attempt-list">

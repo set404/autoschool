@@ -19,10 +19,12 @@ export class ProgressService {
 
   private readonly _attempts = signal<TestAttempt[]>([]);
   private readonly _submitStatus = signal<'idle' | 'pending' | 'ok' | 'error'>('idle');
+  private readonly _loading = signal(true);
 
   /** Most recent attempt first. */
   readonly attempts = this._attempts.asReadonly();
   readonly submitStatus = this._submitStatus.asReadonly();
+  readonly loading = this._loading.asReadonly();
 
   readonly testsTaken = computed(() => this._attempts().length);
 
@@ -50,10 +52,14 @@ export class ProgressService {
   }
 
   refresh(): void {
+    this._loading.set(true);
     this.http
       .get<TestAttempt[]>(`${environment.apiUrl}/attempts`)
       .pipe(catchError(() => of([])))
-      .subscribe((attempts) => this._attempts.set(attempts));
+      .subscribe((attempts) => {
+        this._attempts.set(attempts);
+        this._loading.set(false);
+      });
   }
 
   /** Submits the attempt to the server; the server recomputes the score authoritatively. */

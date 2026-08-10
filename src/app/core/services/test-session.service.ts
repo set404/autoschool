@@ -3,6 +3,7 @@ import { Question } from '../models/question.model';
 import { TestSummary } from '../models/test.model';
 import { ProgressService } from './progress.service';
 import { MissedQuestionsService } from './missed-questions.service';
+import { DataService } from './data.service';
 import { MISSED_TEST_ID } from '../constants';
 
 export const SECONDS_PER_QUESTION = 60;
@@ -11,6 +12,7 @@ export const SECONDS_PER_QUESTION = 60;
 export class TestSessionService {
   private readonly progress = inject(ProgressService);
   private readonly missedQuestions = inject(MissedQuestionsService);
+  private readonly dataService = inject(DataService);
   private readonly _test = signal<TestSummary | undefined>(undefined);
   private readonly _questions = signal<Question[]>([]);
   private readonly _currentIndex = signal(0);
@@ -121,7 +123,10 @@ export class TestSessionService {
           answers: this._answers(),
           elapsedSeconds: this.elapsedSeconds(),
         },
-        () => this.missedQuestions.refresh(),
+        () => {
+          this.missedQuestions.refresh();
+          this.dataService.refreshTests();
+        },
       );
     }
   }

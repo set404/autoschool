@@ -58,25 +58,43 @@
     <section class="panel">
       <h3>{{ 'admin.users' | translate }} ({{ users().length }})</h3>
 
-      <ul class="user-list">
-        @for (user of users(); track user.id) {
-          <li class="user-row">
-            <span class="user-row__avatar"><app-icon name="user" /></span>
-            <span class="user-row__info">
-              <span class="user-row__name">{{ user.name }}</span>
-              <span class="user-row__email">{{ user.email }}</span>
-            </span>
-            <select class="user-row__role" [value]="user.role" (change)="changeRole(user, $any($event.target).value)">
-              <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
-              <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
-              <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
-            </select>
-            <button type="button" class="icon-btn icon-btn--danger" (click)="deleteUser(user)">
-              <app-icon name="x-circle" />
-            </button>
-          </li>
-        }
-      </ul>
+      @if (usersLoading()) {
+        <ul class="user-list">
+          @for (row of skeletonRows; track row) {
+            <li class="user-row">
+              <app-skeleton [circle]="true" width="36px" height="36px" />
+              <span class="user-row__info" style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="140px" height="16px" />
+                <app-skeleton width="180px" height="12px" />
+              </span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <ul class="user-list">
+          @for (user of users(); track user.id) {
+            <li class="user-row">
+              <span class="user-row__avatar"><app-icon name="user" /></span>
+              <span class="user-row__info">
+                <span class="user-row__name">{{ user.name }}</span>
+                <span class="user-row__email">{{ user.email }}</span>
+              </span>
+              <select
+                class="user-row__role"
+                [value]="user.role"
+                (change)="changeRole(user, $any($event.target).value)"
+              >
+                <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
+                <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
+                <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
+              </select>
+              <button type="button" class="icon-btn icon-btn--danger" (click)="deleteUser(user)">
+                <app-icon name="x-circle" />
+              </button>
+            </li>
+          }
+        </ul>
+      }
     </section>
   } @else {
     <section class="panel">
@@ -121,7 +139,19 @@
     <section class="panel">
       <h3>{{ 'admin.assignments' | translate }} ({{ assignments().length }})</h3>
 
-      @if (assignments().length === 0) {
+      @if (assignmentsLoading()) {
+        <ul class="assignment-list">
+          @for (row of skeletonRows; track row) {
+            <li class="assignment-row">
+              <div class="assignment-row__info" style="gap: 8px">
+                <app-skeleton width="100px" height="14px" />
+                <app-icon name="arrow-right" />
+                <app-skeleton width="100px" height="14px" />
+              </div>
+            </li>
+          }
+        </ul>
+      } @else if (assignments().length === 0) {
         <p class="empty-state">{{ 'admin.noAssignments' | translate }}</p>
       } @else {
         <ul class="assignment-list">
