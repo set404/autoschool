@@ -1,0 +1,130 @@
+.comments {
+  padding: 16px;
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-control);
+  margin-top: 8px;
+}
+
+.comments__heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-heading);
+
+  app-icon {
+    font-size: 14px;
+    color: var(--color-text-muted);
+  }
+}
+
+.comments__empty {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.comments__list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comments__item {
+  background: var(--color-surface);
+  border-radius: var(--radius-control);
+  padding: 10px 12px;
+}
+
+.comments__item-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.comments__author {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.comments__date {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.comments__delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+}
+
+.comments__body {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.comments__error {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-control);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  font-size: 12px;
+}
+
+.comments__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comments__form textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: inherit;
+
+  &:focus {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 1px;
+  }
+}
+
+.comments__post {
+  align-self: flex-end;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--color-amber);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

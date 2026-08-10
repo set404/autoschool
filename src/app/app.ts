@@ -7,6 +7,7 @@ import { BottomNavComponent, NavTab } from './shared/bottom-nav/bottom-nav.compo
 
 function tabForUrl(url: string): NavTab | null {
   const path = url.split('?')[0].split('#')[0];
+  if (path === '/login' || path === '/register') return null;
   if (path === '/') return 'practice';
   if (path.startsWith('/tests')) return 'tests';
   if (path.startsWith('/statistics')) return 'statistics';

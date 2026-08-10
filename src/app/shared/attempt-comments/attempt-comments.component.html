@@ -1,0 +1,46 @@
+<div class="comments">
+  <h4 class="comments__heading"><app-icon name="comment" /> {{ 'comments.heading' | translate }}</h4>
+
+  @if (comments().length === 0) {
+    <p class="comments__empty">{{ 'comments.empty' | translate }}</p>
+  } @else {
+    <ul class="comments__list">
+      @for (comment of comments(); track comment.id) {
+        <li class="comments__item">
+          <div class="comments__item-head">
+            <span class="comments__author">{{ comment.author.name }}</span>
+            <span class="comments__date">{{ comment.createdAt | date: 'mediumDate' }}</span>
+            @if (manage() && comment.author.id === currentUserId()) {
+              <button
+                type="button"
+                class="comments__delete"
+                [attr.aria-label]="'comments.delete' | translate"
+                (click)="remove(comment)"
+              >
+                <app-icon name="x-circle" />
+              </button>
+            }
+          </div>
+          <p class="comments__body">{{ comment.body }}</p>
+        </li>
+      }
+    </ul>
+  }
+
+  @if (manage()) {
+    @if (postError()) {
+      <p class="comments__error">{{ postError()! | translate }}</p>
+    }
+    <div class="comments__form">
+      <textarea
+        [value]="newBody()"
+        (input)="newBody.set($any($event.target).value)"
+        [placeholder]="'comments.placeholder' | translate"
+        rows="2"
+      ></textarea>
+      <button type="button" class="comments__post" [disabled]="posting() || !newBody().trim()" (click)="post()">
+        {{ 'comments.post' | translate }}
+      </button>
+    </div>
+  }
+</div>

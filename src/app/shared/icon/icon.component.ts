@@ -25,7 +25,8 @@ export type IconName =
   | 'warning-sign'
   | 'refresh'
   | 'list'
-  | 'camera';
+  | 'camera'
+  | 'comment';
 
 @Component({
   selector: 'app-icon',

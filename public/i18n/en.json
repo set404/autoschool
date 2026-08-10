@@ -110,5 +110,12 @@
   "admin.createAssignment": "Assign Student to Teacher",
   "admin.assignmentSelectError": "Choose both a teacher and a student.",
   "admin.createAssignmentError": "Couldn't create assignment.",
-  "admin.noAssignments": "No teacher-student assignments yet."
+  "admin.noAssignments": "No teacher-student assignments yet.",
+
+  "comments.heading": "Comments",
+  "comments.empty": "No comments yet.",
+  "comments.placeholder": "Write a comment…",
+  "comments.post": "Post",
+  "comments.delete": "Delete comment",
+  "comments.postError": "Couldn't post your comment. Please try again."
 }

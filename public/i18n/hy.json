@@ -110,5 +110,12 @@
   "admin.createAssignment": "Նշանակել սան հրահանգչին",
   "admin.assignmentSelectError": "Ընտրեք և՛ հրահանգիչ, և՛ սան:",
   "admin.createAssignmentError": "Չհաջողվեց ստեղծել նշանակումը:",
-  "admin.noAssignments": "Հրահանգիչ-սան նշանակումներ դեռ չկան:"
+  "admin.noAssignments": "Հրահանգիչ-սան նշանակումներ դեռ չկան:",
+
+  "comments.heading": "Մեկնաբանություններ",
+  "comments.empty": "Մեկնաբանություններ դեռ չկան:",
+  "comments.placeholder": "Գրեք մեկնաբանություն…",
+  "comments.post": "Հրապարակել",
+  "comments.delete": "Ջնջել մեկնաբանությունը",
+  "comments.postError": "Չհաջողվեց հրապարակել մեկնաբանությունը: Խնդրում ենք փորձել կրկին:"
 }

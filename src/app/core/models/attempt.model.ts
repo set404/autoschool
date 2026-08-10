@@ -10,4 +10,5 @@ export interface TestAttempt {
   passed: boolean;
   elapsedSeconds: number;
   completedAt: number;
+  commentCount: number;
 }

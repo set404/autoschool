@@ -110,5 +110,12 @@
   "admin.createAssignment": "Назначить ученика преподавателю",
   "admin.assignmentSelectError": "Выберите и преподавателя, и ученика.",
   "admin.createAssignmentError": "Не удалось создать назначение.",
-  "admin.noAssignments": "Пока нет назначений преподаватель-ученик."
+  "admin.noAssignments": "Пока нет назначений преподаватель-ученик.",
+
+  "comments.heading": "Комментарии",
+  "comments.empty": "Пока нет комментариев.",
+  "comments.placeholder": "Напишите комментарий…",
+  "comments.post": "Отправить",
+  "comments.delete": "Удалить комментарий",
+  "comments.postError": "Не удалось отправить комментарий. Попробуйте снова."
 }

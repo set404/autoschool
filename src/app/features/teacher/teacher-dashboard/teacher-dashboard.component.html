@@ -59,17 +59,33 @@
       } @else {
         <ul class="attempt-list">
           @for (attempt of attempts(); track attempt.id) {
-            <li class="attempt-item">
-              <div class="attempt-item__lead">
-                <span class="attempt-item__badge" [class.attempt-item__badge--fail]="!attempt.passed">
-                  <app-icon [name]="attempt.passed ? 'check-circle' : 'x-circle'" />
-                </span>
-                <div>
-                  <p class="attempt-item__title">{{ attempt.testTitle | localize }}</p>
-                  <p class="attempt-item__date">{{ attempt.completedAt | date: 'mediumDate' }}</p>
+            <li>
+              <button type="button" class="attempt-item" (click)="toggleAttempt(attempt.id)">
+                <div class="attempt-item__lead">
+                  <span class="attempt-item__badge" [class.attempt-item__badge--fail]="!attempt.passed">
+                    <app-icon [name]="attempt.passed ? 'check-circle' : 'x-circle'" />
+                  </span>
+                  <div>
+                    <p class="attempt-item__title">{{ attempt.testTitle | localize }}</p>
+                    <p class="attempt-item__date">{{ attempt.completedAt | date: 'mediumDate' }}</p>
+                  </div>
                 </div>
-              </div>
-              <span class="attempt-item__score">{{ attempt.score }}/{{ attempt.total }}</span>
+                <span class="attempt-item__meta">
+                  @if (attempt.commentCount > 0) {
+                    <span class="attempt-item__comment-count">
+                      <app-icon name="comment" />{{ attempt.commentCount }}
+                    </span>
+                  }
+                  <span class="attempt-item__score">{{ attempt.score }}/{{ attempt.total }}</span>
+                </span>
+              </button>
+              @if (expandedAttemptId() === attempt.id) {
+                <app-attempt-comments
+                  [attemptId]="attempt.id"
+                  [manage]="{ studentId: student.id }"
+                  (changed)="onCommentsChanged()"
+                />
+              }
             </li>
           }
         </ul>
