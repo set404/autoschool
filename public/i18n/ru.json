@@ -1,6 +1,8 @@
 {
   "common.appName": "Auto Go",
   "common.finish": "Завершить",
+  "common.cancel": "Отмена",
+  "common.done": "Готово",
 
   "test.questionOf": "Вопрос {current} из {total}",
   "test.markForReview": "Отметить для повтора",
@@ -13,6 +15,7 @@
 
   "nav.practice": "Практика",
   "nav.tests": "Тесты",
+  "nav.calendar": "Календарь",
   "nav.statistics": "Статистика",
   "nav.profile": "Профиль",
 
@@ -37,6 +40,9 @@
   "dashboard.avgScoreEmptyHint": "Пройдите первый тест, чтобы увидеть балл",
   "dashboard.recentTests": "Последние тесты",
   "dashboard.viewAll": "Смотреть все",
+  "dashboard.upcomingLessons": "Ближайшие занятия",
+  "dashboard.upcomingLessonsHint": "Ваши следующие запланированные занятия",
+  "dashboard.noUpcomingLessons": "Нет запланированных занятий.",
 
   "results.title": "Тест завершён!",
   "results.subtitle": "Отличная работа, вы почти готовы к дороге.",
@@ -97,6 +103,28 @@
   "teacher.heading": "Мои ученики",
   "teacher.students": "Ученики",
   "teacher.noStudents": "Вам пока не назначены ученики.",
+  "teacher.studentsTab": "Ученики",
+  "teacher.lessonsTab": "Занятия",
+  "teacher.addLesson": "Добавить занятие",
+  "teacher.scheduleLesson": "Запланировать занятие",
+  "teacher.lessonStudent": "Ученик",
+  "teacher.lessonStudentError": "Выберите ученика для этого занятия.",
+  "teacher.lessonDate": "Дата и время",
+  "teacher.lessonDatePlaceholder": "Выберите дату и время",
+  "teacher.lessonDuration": "Длительность (минуты)",
+  "teacher.lessonType": "Тип",
+  "teacher.lessonTypeOnline": "Онлайн",
+  "teacher.lessonTypeOffline": "Очно",
+  "teacher.lessonLocation": "Адрес",
+  "teacher.lessonMeetingLink": "Ссылка на встречу",
+  "teacher.lessonNotes": "Заметки (необязательно)",
+  "teacher.lessonDateError": "Выберите дату и время занятия.",
+  "teacher.lessonLocationError": "Укажите адрес для очного занятия.",
+  "teacher.lessonMeetingLinkError": "Укажите ссылку для онлайн-занятия.",
+  "teacher.scheduleLessonError": "Не удалось запланировать занятие. Проверьте данные и попробуйте снова.",
+  "teacher.myLessons": "Мои занятия",
+  "teacher.noLessons": "Пока нет запланированных занятий.",
+  "teacher.lessonCancelled": "Отменено",
 
   "admin.heading": "Администрирование",
   "admin.users": "Пользователи",
@@ -117,5 +145,14 @@
   "comments.placeholder": "Напишите комментарий…",
   "comments.post": "Отправить",
   "comments.delete": "Удалить комментарий",
-  "comments.postError": "Не удалось отправить комментарий. Попробуйте снова."
+  "comments.postError": "Не удалось отправить комментарий. Попробуйте снова.",
+
+  "calendar.heading": "Мои занятия",
+  "calendar.upcoming": "Ближайшие занятия",
+  "calendar.past": "Прошедшие занятия",
+  "calendar.empty": "У вас пока нет запланированных занятий.",
+  "calendar.typeOnline": "Онлайн",
+  "calendar.typeOffline": "Очно",
+  "calendar.joinLink": "Присоединиться",
+  "calendar.duration": "{minutes} мин"
 }

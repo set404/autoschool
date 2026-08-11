@@ -17,13 +17,13 @@
 
   <section class="stat-card">
     <div class="stat-card__row">
-      <span class="stat-card__icon stat-card__icon--navy"><app-icon name="book" /></span>
-      <span class="stat-card__value">{{ lessonsCompleted }}/{{ lessonsTotal }}</span>
+      <span class="stat-card__icon stat-card__icon--navy"><app-icon name="calendar" /></span>
+      <span class="stat-card__value">{{ upcomingLessons().length }}</span>
     </div>
-    <h3 class="stat-card__title">{{ 'dashboard.lessonsCompleted' | translate }}</h3>
-    <div class="stat-card__bar">
-      <div class="stat-card__bar-fill" [style.width.%]="(lessonsCompleted / lessonsTotal) * 100"></div>
-    </div>
+    <h3 class="stat-card__title">{{ 'dashboard.upcomingLessons' | translate }}</h3>
+    <p class="stat-card__hint">
+      {{ (upcomingLessons().length > 0 ? 'dashboard.upcomingLessonsHint' : 'dashboard.noUpcomingLessons') | translate }}
+    </p>
   </section>
 
   <section class="stat-card">
@@ -35,6 +35,46 @@
     <p class="stat-card__hint">
       {{ (progress.testsTaken() > 0 ? 'dashboard.avgScoreHint' : 'dashboard.avgScoreEmptyHint') | translate }}
     </p>
+  </section>
+
+  <section class="panel">
+    <div class="panel__header">
+      <h3 class="panel__title">{{ 'dashboard.upcomingLessons' | translate }}</h3>
+      <a class="panel__link" routerLink="/calendar">{{ 'dashboard.viewAll' | translate }}</a>
+    </div>
+    @if (lessonsLoading()) {
+      <ul class="recent-list">
+        @for (row of skeletonRows; track row) {
+          <li class="recent-item">
+            <div class="recent-item__lead">
+              <app-skeleton [circle]="true" width="40px" height="40px" />
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="120px" height="16px" />
+                <app-skeleton width="80px" height="12px" />
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (upcomingLessonsPreview().length === 0) {
+      <p class="empty-state">{{ 'dashboard.noUpcomingLessons' | translate }}</p>
+    } @else {
+      <ul class="recent-list">
+        @for (lesson of upcomingLessonsPreview(); track lesson.id) {
+          <li class="recent-item">
+            <div class="recent-item__lead">
+              <span class="recent-item__badge">
+                <app-icon [name]="lesson.type === 'ONLINE' ? 'play' : 'flag'" />
+              </span>
+              <div>
+                <p class="recent-item__title">{{ lesson.teacher.name }}</p>
+                <p class="recent-item__date">{{ lesson.scheduledAt | date: 'MMM d, shortTime' }}</p>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    }
   </section>
 
   <section class="panel">

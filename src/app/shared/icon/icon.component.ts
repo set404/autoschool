@@ -26,7 +26,8 @@ export type IconName =
   | 'refresh'
   | 'list'
   | 'camera'
-  | 'comment';
+  | 'comment'
+  | 'calendar';
 
 @Component({
   selector: 'app-icon',

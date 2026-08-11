@@ -1,0 +1,137 @@
+<app-top-bar [title]="'teacher.myLessons' | translate" />
+
+<main class="teacher-lessons">
+  <section class="panel">
+    <div class="panel__header">
+      <h3>{{ 'teacher.myLessons' | translate }}</h3>
+      <button type="button" class="add-btn" (click)="toggleForm()">
+        <app-icon [name]="showForm() ? 'x-circle' : 'plus'" />
+        {{ (showForm() ? 'common.cancel' : 'teacher.addLesson') | translate }}
+      </button>
+    </div>
+
+    @if (showForm()) {
+      <div class="create-form">
+        @if (createLessonError()) {
+          <p class="form-error">{{ createLessonError()! | translate }}</p>
+        }
+
+        <div class="form-grid">
+          <label class="field field--full">
+            <span class="field__label">{{ 'teacher.lessonStudent' | translate }}</span>
+            <select
+              [value]="newLessonStudentId()"
+              (change)="newLessonStudentId.set($any($event.target).value)"
+            >
+              <option value="">—</option>
+              @for (student of students(); track student.id) {
+                <option [value]="student.id">{{ student.name }}</option>
+              }
+            </select>
+          </label>
+          <label class="field field--full">
+            <span class="field__label">{{ 'teacher.lessonDate' | translate }}</span>
+            <app-datetime-picker
+              [value]="newLessonDate()"
+              (valueChange)="newLessonDate.set($event)"
+              [minDate]="minScheduleDate"
+              [placeholder]="'teacher.lessonDatePlaceholder' | translate"
+            />
+          </label>
+          <label class="field">
+            <span class="field__label">{{ 'teacher.lessonDuration' | translate }}</span>
+            <input
+              type="number"
+              min="15"
+              step="15"
+              [value]="newLessonDuration()"
+              (input)="newLessonDuration.set($any($event.target).valueAsNumber)"
+            />
+          </label>
+          <label class="field">
+            <span class="field__label">{{ 'teacher.lessonType' | translate }}</span>
+            <select [value]="newLessonType()" (change)="newLessonType.set($any($event.target).value)">
+              <option value="OFFLINE">{{ 'teacher.lessonTypeOffline' | translate }}</option>
+              <option value="ONLINE">{{ 'teacher.lessonTypeOnline' | translate }}</option>
+            </select>
+          </label>
+          @if (newLessonType() === 'OFFLINE') {
+            <label class="field">
+              <span class="field__label">{{ 'teacher.lessonLocation' | translate }}</span>
+              <input
+                type="text"
+                [value]="newLessonLocation()"
+                (input)="newLessonLocation.set($any($event.target).value)"
+              />
+            </label>
+          } @else {
+            <label class="field">
+              <span class="field__label">{{ 'teacher.lessonMeetingLink' | translate }}</span>
+              <input
+                type="url"
+                [value]="newLessonMeetingLink()"
+                (input)="newLessonMeetingLink.set($any($event.target).value)"
+              />
+            </label>
+          }
+          <label class="field field--full">
+            <span class="field__label">{{ 'teacher.lessonNotes' | translate }}</span>
+            <textarea
+              rows="2"
+              [value]="newLessonNotes()"
+              (input)="newLessonNotes.set($any($event.target).value)"
+            ></textarea>
+          </label>
+        </div>
+
+        <button type="button" class="submit-btn" [disabled]="creatingLesson()" (click)="createLesson()">
+          {{ 'teacher.scheduleLesson' | translate }}
+        </button>
+      </div>
+    }
+
+    @if (lessonsLoading()) {
+      <ul class="lesson-list">
+        @for (row of skeletonRows; track row) {
+          <li class="lesson-item">
+            <div class="lesson-item__lead">
+              <app-skeleton [circle]="true" width="40px" height="40px" />
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="140px" height="16px" />
+                <app-skeleton width="90px" height="12px" />
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (upcomingLessonGroups().length === 0) {
+      <p class="empty-state">{{ 'teacher.noLessons' | translate }}</p>
+    } @else {
+      @for (group of upcomingLessonGroups(); track group.dateKey) {
+        <h4 class="attempts-heading">{{ group.scheduledAt | date: 'EEEE, MMM d' }}</h4>
+        <ul class="lesson-list">
+          @for (lesson of group.lessons; track lesson.id) {
+            <li class="lesson-item">
+              <div class="lesson-item__lead">
+                <span class="lesson-item__badge" [class.lesson-item__badge--online]="lesson.type === 'ONLINE'">
+                  <app-icon [name]="lesson.type === 'ONLINE' ? 'play' : 'flag'" />
+                </span>
+                <div>
+                  <p class="lesson-item__title">
+                    {{ lesson.scheduledAt | date: 'shortTime' }} · {{ lesson.student.name }}
+                  </p>
+                  <p class="lesson-item__type">
+                    {{ (lesson.type === 'ONLINE' ? 'calendar.typeOnline' : 'calendar.typeOffline') | translate }}
+                  </p>
+                </div>
+              </div>
+              <button type="button" class="icon-btn icon-btn--danger" (click)="cancelLesson(lesson)">
+                <app-icon name="x-circle" />
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    }
+  </section>
+</main>

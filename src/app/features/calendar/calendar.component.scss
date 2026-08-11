@@ -1,0 +1,117 @@
+.calendar {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px calc(120px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+
+  h3 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-heading);
+  }
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.day-heading {
+  margin: 16px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.lesson-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lesson-item {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-control);
+  padding: 16px;
+
+  &--past {
+    opacity: 0.7;
+  }
+
+  &__lead {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  &__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--color-navy-tint);
+    color: var(--color-heading);
+    font-size: 18px;
+    flex-shrink: 0;
+
+    &--online {
+      background: var(--color-amber-tint);
+      color: var(--color-amber);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--color-text);
+  }
+
+  &__type {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--color-amber);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  &__location {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--color-text);
+  }
+
+  &__notes {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+}

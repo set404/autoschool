@@ -32,6 +32,11 @@ export const routes: Routes = [
           import('./features/statistics/statistics.component').then((m) => m.StatisticsComponent),
       },
       {
+        path: 'calendar',
+        loadComponent: () =>
+          import('./features/calendar/calendar.component').then((m) => m.CalendarComponent),
+      },
+      {
         path: 'profile',
         loadComponent: () => import('./features/profile/profile.component').then((m) => m.ProfileComponent),
       },
@@ -65,6 +70,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/teacher/teacher-dashboard/teacher-dashboard.component').then(
             (m) => m.TeacherDashboardComponent,
+          ),
+      },
+      {
+        path: 'teacher/lessons',
+        canActivate: [roleGuard('TEACHER')],
+        loadComponent: () =>
+          import('./features/teacher/teacher-lessons/teacher-lessons.component').then(
+            (m) => m.TeacherLessonsComponent,
           ),
       },
       {

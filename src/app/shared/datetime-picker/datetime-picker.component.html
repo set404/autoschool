@@ -1,0 +1,81 @@
+<div class="dtp">
+  <button type="button" class="dtp__trigger" (click)="toggle()">
+    <span class="dtp__value" [class.dtp__value--placeholder]="!displayText()">
+      {{ displayText() || placeholder() }}
+    </span>
+    <app-icon name="calendar" />
+  </button>
+
+  @if (open()) {
+    <div class="dtp__panel">
+      <div class="dtp__month-nav">
+        <button type="button" class="dtp__nav-btn" (click)="prevMonth()">
+          <app-icon name="arrow-left" />
+        </button>
+        <span class="dtp__month-label">{{ monthLabel() }}</span>
+        <button type="button" class="dtp__nav-btn" (click)="nextMonth()">
+          <app-icon name="arrow-right" />
+        </button>
+      </div>
+
+      <div class="dtp__weekdays">
+        @for (label of weekdayLabels(); track $index) {
+          <span>{{ label }}</span>
+        }
+      </div>
+
+      <div class="dtp__days">
+        @for (cell of days(); track cell.date.getTime()) {
+          <button
+            type="button"
+            class="dtp__day"
+            [class.dtp__day--muted]="!cell.inCurrentMonth"
+            [class.dtp__day--selected]="draftDay() && isSameDay(cell.date, draftDay()!)"
+            [class.dtp__day--today]="isSameDay(cell.date, today)"
+            [disabled]="cell.disabled"
+            (click)="selectDay(cell)"
+          >
+            {{ cell.day }}
+          </button>
+        }
+      </div>
+
+      <div class="dtp__time">
+        <div class="dtp__stepper">
+          <button type="button" (click)="adjustHour(-1)">−</button>
+          <input
+            class="dtp__time-input"
+            type="text"
+            inputmode="numeric"
+            maxlength="2"
+            [value]="hourInputValue()"
+            (input)="setHourInput($any($event.target).value)"
+            (blur)="commitHourInput()"
+          />
+          <button type="button" (click)="adjustHour(1)">+</button>
+        </div>
+        <span class="dtp__time-sep">:</span>
+        <div class="dtp__stepper">
+          <button type="button" (click)="adjustMinute(-5)">−</button>
+          <input
+            class="dtp__time-input"
+            type="text"
+            inputmode="numeric"
+            maxlength="2"
+            [value]="minuteInputValue()"
+            (input)="setMinuteInput($any($event.target).value)"
+            (blur)="commitMinuteInput()"
+          />
+          <button type="button" (click)="adjustMinute(5)">+</button>
+        </div>
+      </div>
+
+      <div class="dtp__actions">
+        <button type="button" class="dtp__cancel" (click)="close()">{{ 'common.cancel' | translate }}</button>
+        <button type="button" class="dtp__done" [disabled]="!draftDay()" (click)="confirm()">
+          {{ 'common.done' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

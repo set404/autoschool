@@ -1,0 +1,225 @@
+.dtp {
+  position: relative;
+  width: 100%;
+}
+
+.dtp__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: start;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 1px;
+  }
+
+  app-icon {
+    flex-shrink: 0;
+    font-size: 15px;
+    color: var(--color-text-muted);
+  }
+}
+
+.dtp__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &--placeholder {
+    color: var(--color-text-faint);
+  }
+}
+
+.dtp__panel {
+  position: absolute;
+  z-index: 41;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 260px;
+  max-width: calc(100vw - 32px);
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-elevated);
+  padding: 12px;
+}
+
+.dtp__month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dtp__month-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.dtp__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.dtp__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 2px;
+
+  span {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+}
+
+.dtp__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.dtp__day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 12px;
+  cursor: pointer;
+
+  &--muted {
+    color: var(--color-text-faint);
+  }
+
+  &--today {
+    outline: 1px solid var(--color-amber);
+    outline-offset: -1px;
+  }
+
+  &--selected {
+    background: var(--color-amber);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  &:disabled {
+    color: var(--color-text-faint);
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.dtp__time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.dtp__stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    color: var(--color-text);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+}
+
+.dtp__time-input {
+  width: 30px;
+  padding: 3px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface-muted);
+  color: var(--color-heading);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-family: inherit;
+
+  &:focus {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 1px;
+  }
+}
+
+.dtp__time-sep {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.dtp__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.dtp__cancel {
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.dtp__done {
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--color-amber);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}

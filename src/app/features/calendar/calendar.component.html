@@ -1,0 +1,86 @@
+<app-top-bar [title]="'calendar.heading' | translate" />
+
+<main class="calendar">
+  <section class="panel">
+    <h3>{{ 'calendar.upcoming' | translate }}</h3>
+
+    @if (loading()) {
+      <ul class="lesson-list">
+        @for (row of skeletonRows; track row) {
+          <li class="lesson-item">
+            <div class="lesson-item__lead">
+              <app-skeleton [circle]="true" width="40px" height="40px" />
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <app-skeleton width="140px" height="16px" />
+                <app-skeleton width="90px" height="12px" />
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (upcomingGroups().length === 0) {
+      <p class="empty-state">{{ 'calendar.empty' | translate }}</p>
+    } @else {
+      @for (group of upcomingGroups(); track group.dateKey) {
+        <h4 class="day-heading">{{ group.scheduledAt | date: 'EEEE, MMM d' }}</h4>
+        <ul class="lesson-list">
+          @for (lesson of group.lessons; track lesson.id) {
+            <li class="lesson-item">
+              <div class="lesson-item__lead">
+                <span class="lesson-item__badge" [class.lesson-item__badge--online]="lesson.type === 'ONLINE'">
+                  <app-icon [name]="lesson.type === 'ONLINE' ? 'play' : 'flag'" />
+                </span>
+                <div>
+                  <p class="lesson-item__title">{{ lesson.scheduledAt | date: 'shortTime' }} · {{ lesson.teacher.name }}</p>
+                  <p class="lesson-item__type">
+                    {{ (lesson.type === 'ONLINE' ? 'calendar.typeOnline' : 'calendar.typeOffline') | translate }}
+                    · {{ 'calendar.duration' | translate: { minutes: lesson.durationMinutes } }}
+                  </p>
+                  @if (lesson.type === 'ONLINE' && lesson.meetingLink) {
+                    <a class="lesson-item__link" [href]="lesson.meetingLink" target="_blank" rel="noopener">
+                      {{ 'calendar.joinLink' | translate }}
+                    </a>
+                  } @else if (lesson.location) {
+                    <p class="lesson-item__location">{{ lesson.location }}</p>
+                  }
+                  @if (lesson.notes) {
+                    <p class="lesson-item__notes">{{ lesson.notes }}</p>
+                  }
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    }
+  </section>
+
+  @if (!loading() && pastGroups().length > 0) {
+    <section class="panel">
+      <h3>{{ 'calendar.past' | translate }}</h3>
+      @for (group of pastGroups(); track group.dateKey) {
+        <h4 class="day-heading">{{ group.scheduledAt | date: 'EEEE, MMM d' }}</h4>
+        <ul class="lesson-list">
+          @for (lesson of group.lessons; track lesson.id) {
+            <li class="lesson-item lesson-item--past">
+              <div class="lesson-item__lead">
+                <span class="lesson-item__badge" [class.lesson-item__badge--online]="lesson.type === 'ONLINE'">
+                  <app-icon [name]="lesson.type === 'ONLINE' ? 'play' : 'flag'" />
+                </span>
+                <div>
+                  <p class="lesson-item__title">{{ lesson.scheduledAt | date: 'shortTime' }} · {{ lesson.teacher.name }}</p>
+                  <p class="lesson-item__type">
+                    {{ (lesson.type === 'ONLINE' ? 'calendar.typeOnline' : 'calendar.typeOffline') | translate }}
+                    @if (lesson.status === 'CANCELLED') {
+                      · {{ 'teacher.lessonCancelled' | translate }}
+                    }
+                  </p>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</main>

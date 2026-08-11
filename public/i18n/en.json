@@ -1,6 +1,8 @@
 {
   "common.appName": "Auto Go",
   "common.finish": "Finish",
+  "common.cancel": "Cancel",
+  "common.done": "Done",
 
   "test.questionOf": "Question {current} of {total}",
   "test.markForReview": "Mark for Review",
@@ -13,6 +15,7 @@
 
   "nav.practice": "Practice",
   "nav.tests": "Tests",
+  "nav.calendar": "Calendar",
   "nav.statistics": "Statistics",
   "nav.profile": "Profile",
 
@@ -37,6 +40,9 @@
   "dashboard.avgScoreEmptyHint": "Complete your first test to see this",
   "dashboard.recentTests": "Recent Tests",
   "dashboard.viewAll": "View All",
+  "dashboard.upcomingLessons": "Upcoming Lessons",
+  "dashboard.upcomingLessonsHint": "Your next scheduled lessons",
+  "dashboard.noUpcomingLessons": "No upcoming lessons scheduled.",
 
   "results.title": "Test Completed!",
   "results.subtitle": "Great effort, you're almost ready for the road.",
@@ -97,6 +103,28 @@
   "teacher.heading": "My Students",
   "teacher.students": "Students",
   "teacher.noStudents": "No students are assigned to you yet.",
+  "teacher.studentsTab": "Students",
+  "teacher.lessonsTab": "Lessons",
+  "teacher.addLesson": "Add Lesson",
+  "teacher.scheduleLesson": "Schedule Lesson",
+  "teacher.lessonStudent": "Student",
+  "teacher.lessonStudentError": "Choose a student for this lesson.",
+  "teacher.lessonDate": "Date & Time",
+  "teacher.lessonDatePlaceholder": "Select date & time",
+  "teacher.lessonDuration": "Duration (minutes)",
+  "teacher.lessonType": "Type",
+  "teacher.lessonTypeOnline": "Online",
+  "teacher.lessonTypeOffline": "In Person",
+  "teacher.lessonLocation": "Location / Address",
+  "teacher.lessonMeetingLink": "Meeting Link",
+  "teacher.lessonNotes": "Notes (optional)",
+  "teacher.lessonDateError": "Choose a date and time for the lesson.",
+  "teacher.lessonLocationError": "Enter a location for an in-person lesson.",
+  "teacher.lessonMeetingLinkError": "Enter a meeting link for an online lesson.",
+  "teacher.scheduleLessonError": "Couldn't schedule the lesson. Please check the details and try again.",
+  "teacher.myLessons": "My Lessons",
+  "teacher.noLessons": "No lessons scheduled yet.",
+  "teacher.lessonCancelled": "Cancelled",
 
   "admin.heading": "Admin",
   "admin.users": "Users",
@@ -117,5 +145,14 @@
   "comments.placeholder": "Write a comment…",
   "comments.post": "Post",
   "comments.delete": "Delete comment",
-  "comments.postError": "Couldn't post your comment. Please try again."
+  "comments.postError": "Couldn't post your comment. Please try again.",
+
+  "calendar.heading": "My Lessons",
+  "calendar.upcoming": "Upcoming Lessons",
+  "calendar.past": "Past Lessons",
+  "calendar.empty": "You don't have any lessons scheduled yet.",
+  "calendar.typeOnline": "Online",
+  "calendar.typeOffline": "In Person",
+  "calendar.joinLink": "Join Lesson",
+  "calendar.duration": "{minutes} min"
 }

@@ -1,6 +1,8 @@
 {
   "common.appName": "Auto Go",
   "common.finish": "Ավարտել",
+  "common.cancel": "Չեղարկել",
+  "common.done": "Պատրաստ է",
 
   "test.questionOf": "Հարց {current} / {total}",
   "test.markForReview": "Նշել կրկնության համար",
@@ -13,6 +15,7 @@
 
   "nav.practice": "Պարապմունք",
   "nav.tests": "Թեստեր",
+  "nav.calendar": "Օրացույց",
   "nav.statistics": "Վիճակագրություն",
   "nav.profile": "Անձնական էջ",
 
@@ -37,6 +40,9 @@
   "dashboard.avgScoreEmptyHint": "Անցեք առաջին թեստը՝ տեսնելու համար",
   "dashboard.recentTests": "Վերջին թեստեր",
   "dashboard.viewAll": "Տեսնել բոլորը",
+  "dashboard.upcomingLessons": "Առաջիկա դասեր",
+  "dashboard.upcomingLessonsHint": "Ձեր հաջորդ ամրագրված դասերը",
+  "dashboard.noUpcomingLessons": "Առաջիկա դասեր ամրագրված չեն:",
 
   "results.title": "Թեստն ավարտված է:",
   "results.subtitle": "Հիանալի փորձ, դուք գրեթե պատրաստ եք ճանապարհի համար:",
@@ -97,6 +103,28 @@
   "teacher.heading": "Իմ սաները",
   "teacher.students": "Սաներ",
   "teacher.noStudents": "Ձեզ դեռ սաներ նշանակված չեն:",
+  "teacher.studentsTab": "Սաներ",
+  "teacher.lessonsTab": "Դասեր",
+  "teacher.addLesson": "Ավելացնել դաս",
+  "teacher.scheduleLesson": "Ամրագրել դաս",
+  "teacher.lessonStudent": "Սան",
+  "teacher.lessonStudentError": "Ընտրեք սանին այս դասի համար:",
+  "teacher.lessonDate": "Ամսաթիվ և ժամ",
+  "teacher.lessonDatePlaceholder": "Ընտրեք ամսաթիվը և ժամը",
+  "teacher.lessonDuration": "Տևողություն (րոպե)",
+  "teacher.lessonType": "Տեսակ",
+  "teacher.lessonTypeOnline": "Առցանց",
+  "teacher.lessonTypeOffline": "Առերես",
+  "teacher.lessonLocation": "Հասցե",
+  "teacher.lessonMeetingLink": "Հանդիպման հղում",
+  "teacher.lessonNotes": "Նշումներ (ըստ ցանկության)",
+  "teacher.lessonDateError": "Ընտրեք դասի ամսաթիվն ու ժամը:",
+  "teacher.lessonLocationError": "Նշեք հասցեն առերես դասի համար:",
+  "teacher.lessonMeetingLinkError": "Նշեք հանդիպման հղումը առցանց դասի համար:",
+  "teacher.scheduleLessonError": "Չհաջողվեց ամրագրել դասը: Ստուգեք տվյալները և փորձեք կրկին:",
+  "teacher.myLessons": "Իմ դասերը",
+  "teacher.noLessons": "Դասեր դեռ ամրագրված չեն:",
+  "teacher.lessonCancelled": "Չեղարկված",
 
   "admin.heading": "Ադմինիստրատոր",
   "admin.users": "Օգտատերեր",
@@ -117,5 +145,14 @@
   "comments.placeholder": "Գրեք մեկնաբանություն…",
   "comments.post": "Հրապարակել",
   "comments.delete": "Ջնջել մեկնաբանությունը",
-  "comments.postError": "Չհաջողվեց հրապարակել մեկնաբանությունը: Խնդրում ենք փորձել կրկին:"
+  "comments.postError": "Չհաջողվեց հրապարակել մեկնաբանությունը: Խնդրում ենք փորձել կրկին:",
+
+  "calendar.heading": "Իմ դասերը",
+  "calendar.upcoming": "Առաջիկա դասեր",
+  "calendar.past": "Անցած դասեր",
+  "calendar.empty": "Դուք դեռ դասեր ամրագրված չունեք:",
+  "calendar.typeOnline": "Առցանց",
+  "calendar.typeOffline": "Առերես",
+  "calendar.joinLink": "Միանալ դասին",
+  "calendar.duration": "{minutes} րոպե"
 }

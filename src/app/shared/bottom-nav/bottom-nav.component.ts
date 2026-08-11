@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { IconComponent, IconName } from '../icon/icon.component';
 import { TranslatePipe } from '../../core/services/translate.pipe';
 
-export type NavTab = 'practice' | 'tests' | 'statistics' | 'profile';
+export type NavTab = 'practice' | 'tests' | 'calendar' | 'statistics' | 'profile';
 
 interface NavItem {
   tab: NavTab;
@@ -30,6 +30,7 @@ export class BottomNavComponent {
   protected readonly items: NavItem[] = [
     { tab: 'practice', route: '/', icon: 'quiz', labelKey: 'nav.practice' },
     { tab: 'tests', route: '/tests', icon: 'list', labelKey: 'nav.tests' },
+    { tab: 'calendar', route: '/calendar', icon: 'calendar', labelKey: 'nav.calendar' },
     { tab: 'statistics', route: '/statistics', icon: 'chart-bar', labelKey: 'nav.statistics' },
     { tab: 'profile', route: '/profile', icon: 'user', labelKey: 'nav.profile' },
   ];

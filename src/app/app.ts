@@ -10,6 +10,7 @@ function tabForUrl(url: string): NavTab | null {
   if (path === '/login' || path === '/register') return null;
   if (path === '/') return 'practice';
   if (path.startsWith('/tests')) return 'tests';
+  if (path.startsWith('/calendar')) return 'calendar';
   if (path.startsWith('/statistics')) return 'statistics';
   if (path.startsWith('/profile')) return 'profile';
   if (path.startsWith('/test/')) {
