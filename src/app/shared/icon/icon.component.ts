@@ -8,6 +8,7 @@ export type IconName =
   | 'arrow-right'
   | 'arrow-left'
   | 'chevron-right'
+  | 'chevron-down'
   | 'check-circle'
   | 'x-circle'
   | 'play'
@@ -27,7 +28,8 @@ export type IconName =
   | 'list'
   | 'camera'
   | 'comment'
-  | 'calendar';
+  | 'calendar'
+  | 'login';
 
 @Component({
   selector: 'app-icon',

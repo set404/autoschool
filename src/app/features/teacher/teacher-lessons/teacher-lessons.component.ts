@@ -3,12 +3,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 import { Subject, catchError, of, startWith, switchMap, tap } from 'rxjs';
 import { TranslatePipe } from '../../../core/services/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
 import { IconComponent } from '../../../shared/icon/icon.component';
 import { TopBarComponent } from '../../../shared/top-bar/top-bar.component';
 import { SkeletonComponent } from '../../../shared/skeleton/skeleton.component';
 import { TeacherService } from '../../../core/services/teacher.service';
 import { Lesson, LessonType } from '../../../core/models/lesson.model';
 import { DatetimePickerComponent } from '../../../shared/datetime-picker/datetime-picker.component';
+import { SelectComponent, SelectOption } from '../../../shared/select/select.component';
 
 interface LessonDayGroup {
   dateKey: string;
@@ -33,18 +35,35 @@ function groupByDay(lessons: Lesson[]): LessonDayGroup[] {
 @Component({
   selector: 'app-teacher-lessons',
   standalone: true,
-  imports: [DatePipe, TranslatePipe, IconComponent, TopBarComponent, SkeletonComponent, DatetimePickerComponent],
+  imports: [
+    DatePipe,
+    TranslatePipe,
+    IconComponent,
+    TopBarComponent,
+    SkeletonComponent,
+    DatetimePickerComponent,
+    SelectComponent,
+  ],
   templateUrl: './teacher-lessons.component.html',
   styleUrl: './teacher-lessons.component.scss',
 })
 export class TeacherLessonsComponent {
   private readonly teacherService = inject(TeacherService);
+  private readonly i18n = inject(I18nService);
 
   protected readonly skeletonRows = [0, 1, 2];
   protected readonly showForm = signal(false);
   protected readonly minScheduleDate = new Date();
 
   protected readonly students = toSignal(this.teacherService.listStudents(), { initialValue: [] });
+  protected readonly studentOptions = computed<SelectOption[]>(() =>
+    this.students().map((s) => ({ value: s.id, label: s.name })),
+  );
+
+  protected readonly lessonTypeOptions = computed<SelectOption<LessonType>[]>(() => [
+    { value: 'OFFLINE', label: this.i18n.translate('teacher.lessonTypeOffline') },
+    { value: 'ONLINE', label: this.i18n.translate('teacher.lessonTypeOnline') },
+  ]);
 
   // Schedule Lesson form
   protected readonly newLessonStudentId = signal('');

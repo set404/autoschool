@@ -19,15 +19,12 @@
         <div class="form-grid">
           <label class="field field--full">
             <span class="field__label">{{ 'teacher.lessonStudent' | translate }}</span>
-            <select
-              [value]="newLessonStudentId()"
-              (change)="newLessonStudentId.set($any($event.target).value)"
-            >
-              <option value="">—</option>
-              @for (student of students(); track student.id) {
-                <option [value]="student.id">{{ student.name }}</option>
-              }
-            </select>
+            <app-select
+              [options]="studentOptions()"
+              [value]="newLessonStudentId() || null"
+              placeholder="—"
+              (valueChange)="newLessonStudentId.set($event)"
+            />
           </label>
           <label class="field field--full">
             <span class="field__label">{{ 'teacher.lessonDate' | translate }}</span>
@@ -50,10 +47,11 @@
           </label>
           <label class="field">
             <span class="field__label">{{ 'teacher.lessonType' | translate }}</span>
-            <select [value]="newLessonType()" (change)="newLessonType.set($any($event.target).value)">
-              <option value="OFFLINE">{{ 'teacher.lessonTypeOffline' | translate }}</option>
-              <option value="ONLINE">{{ 'teacher.lessonTypeOnline' | translate }}</option>
-            </select>
+            <app-select
+              [options]="lessonTypeOptions()"
+              [value]="newLessonType()"
+              (valueChange)="newLessonType.set($event)"
+            />
           </label>
           @if (newLessonType() === 'OFFLINE') {
             <label class="field">

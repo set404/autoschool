@@ -139,6 +139,9 @@
   "admin.assignmentSelectError": "Choose both a teacher and a student.",
   "admin.createAssignmentError": "Couldn't create assignment.",
   "admin.noAssignments": "No teacher-student assignments yet.",
+  "admin.logInAs": "Log in as this user",
+  "admin.impersonatingBanner": "You're viewing as {name}",
+  "admin.returnToAdmin": "Return to admin",
 
   "comments.heading": "Comments",
   "comments.empty": "No comments yet.",

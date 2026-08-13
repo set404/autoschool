@@ -1,3 +1,10 @@
+@if (authService.isImpersonating()) {
+  <div class="impersonation-banner">
+    <span>{{ 'admin.impersonatingBanner' | translate: { name: authService.currentUser()?.name ?? '' } }}</span>
+    <button type="button" (click)="returnToAdmin()">{{ 'admin.returnToAdmin' | translate }}</button>
+  </div>
+}
+
 <router-outlet />
 
 @if (activeTab(); as tab) {

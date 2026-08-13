@@ -139,6 +139,9 @@
   "admin.assignmentSelectError": "Ընտրեք և՛ հրահանգիչ, և՛ սան:",
   "admin.createAssignmentError": "Չհաջողվեց ստեղծել նշանակումը:",
   "admin.noAssignments": "Հրահանգիչ-սան նշանակումներ դեռ չկան:",
+  "admin.logInAs": "Մուտք գործել որպես այս օգտատերը",
+  "admin.impersonatingBanner": "Դուք դիտում եք որպես {name}",
+  "admin.returnToAdmin": "Վերադառնալ ադմինիստրատոր",
 
   "comments.heading": "Մեկնաբանություններ",
   "comments.empty": "Մեկնաբանություններ դեռ չկան:",

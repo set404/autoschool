@@ -139,6 +139,9 @@
   "admin.assignmentSelectError": "Выберите и преподавателя, и ученика.",
   "admin.createAssignmentError": "Не удалось создать назначение.",
   "admin.noAssignments": "Пока нет назначений преподаватель-ученик.",
+  "admin.logInAs": "Войти как этот пользователь",
+  "admin.impersonatingBanner": "Вы просматриваете как {name}",
+  "admin.returnToAdmin": "Вернуться к администратору",
 
   "comments.heading": "Комментарии",
   "comments.empty": "Пока нет комментариев.",

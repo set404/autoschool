@@ -1,10 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { catchError, of } from 'rxjs';
 import { TranslatePipe } from '../../../core/services/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
 import { IconComponent } from '../../../shared/icon/icon.component';
 import { TopBarComponent } from '../../../shared/top-bar/top-bar.component';
 import { SkeletonComponent } from '../../../shared/skeleton/skeleton.component';
+import { SelectComponent, SelectOption } from '../../../shared/select/select.component';
 import { AdminService } from '../../../core/services/admin.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { AuthUser, Role } from '../../../core/models/auth.model';
 import { Assignment } from '../../../core/models/assignment.model';
 
@@ -13,12 +16,23 @@ type AdminTab = 'users' | 'assignments';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [TranslatePipe, IconComponent, TopBarComponent, SkeletonComponent],
+  imports: [TranslatePipe, IconComponent, TopBarComponent, SkeletonComponent, SelectComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
 })
 export class AdminDashboardComponent {
   private readonly adminService = inject(AdminService);
+  private readonly authService = inject(AuthService);
+  private readonly i18n = inject(I18nService);
+
+  protected readonly currentUserId = computed(() => this.authService.currentUser()?.id ?? null);
+  protected readonly impersonatingUserId = signal<string | null>(null);
+
+  protected readonly roleOptions = computed<SelectOption<Role>[]>(() => [
+    { value: 'STUDENT', label: this.i18n.translate('admin.roleStudent') },
+    { value: 'TEACHER', label: this.i18n.translate('admin.roleTeacher') },
+    { value: 'ADMIN', label: this.i18n.translate('admin.roleAdmin') },
+  ]);
 
   protected readonly skeletonRows = [0, 1, 2];
   protected readonly tab = signal<AdminTab>('users');
@@ -29,6 +43,13 @@ export class AdminDashboardComponent {
 
   protected readonly teachers = computed(() => this.users().filter((u) => u.role === 'TEACHER'));
   protected readonly students = computed(() => this.users().filter((u) => u.role === 'STUDENT'));
+
+  protected readonly teacherOptions = computed<SelectOption[]>(() =>
+    this.teachers().map((t) => ({ value: t.id, label: t.name })),
+  );
+  protected readonly studentOptions = computed<SelectOption[]>(() =>
+    this.students().map((s) => ({ value: s.id, label: s.name })),
+  );
 
   protected readonly newUserName = signal('');
   protected readonly newUserEmail = signal('');
@@ -111,6 +132,18 @@ export class AdminDashboardComponent {
     this.adminService.deleteUser(user.id).subscribe(() => {
       this.refreshUsers();
       this.refreshAssignments();
+    });
+  }
+
+  impersonate(user: AuthUser): void {
+    if (this.impersonatingUserId()) return;
+    this.impersonatingUserId.set(user.id);
+    this.authService.impersonate(user.id).subscribe({
+      next: () => {
+        // Full reload so every service re-initializes cleanly under the impersonated session.
+        window.location.href = '/';
+      },
+      error: () => this.impersonatingUserId.set(null),
     });
   }
 

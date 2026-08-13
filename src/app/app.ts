@@ -3,6 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 import { ThemeService } from './core/services/theme.service';
+import { AuthService } from './core/services/auth.service';
+import { TranslatePipe } from './core/services/translate.pipe';
 import { BottomNavComponent, NavTab } from './shared/bottom-nav/bottom-nav.component';
 
 function tabForUrl(url: string): NavTab | null {
@@ -22,13 +24,14 @@ function tabForUrl(url: string): NavTab | null {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BottomNavComponent],
+  imports: [RouterOutlet, BottomNavComponent, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   private readonly themeService = inject(ThemeService);
   private readonly router = inject(Router);
+  protected readonly authService = inject(AuthService);
 
   protected readonly activeTab = toSignal(
     this.router.events.pipe(
@@ -38,4 +41,9 @@ export class App {
     ),
     { initialValue: tabForUrl(this.router.url) },
   );
+
+  returnToAdmin(): void {
+    this.authService.returnToAdmin();
+    window.location.href = '/admin';
+  }
 }

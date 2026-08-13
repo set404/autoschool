@@ -14,11 +14,15 @@ export class AuthService {
   private readonly _initializing = signal<boolean>(true);
   private readonly readyPromise: Promise<boolean>;
 
+  private readonly _isImpersonating = signal<boolean>(false);
+
   readonly currentUser = this._currentUser.asReadonly();
   readonly initializing = this._initializing.asReadonly();
   readonly isAuthenticated = computed(() => !!this._currentUser());
+  readonly isImpersonating = this._isImpersonating.asReadonly();
 
   constructor() {
+    this._isImpersonating.set(!!this.tokenStorage.readImpersonatorTokens());
     const tokens = this.tokenStorage.read();
     if (!tokens) {
       this._initializing.set(false);
@@ -79,6 +83,29 @@ export class AuthService {
       complete: () => this.clearSession(),
       error: () => this.clearSession(),
     });
+  }
+
+  /** Admin-only: mint a session for another user without their password, stashing the admin's own tokens. */
+  impersonate(userId: string): Observable<AuthResult> {
+    const adminTokens = this.tokenStorage.read();
+    return this.http.post<AuthResult>(`${environment.apiUrl}/auth/impersonate/${userId}`, {}).pipe(
+      tap((result) => {
+        if (adminTokens) {
+          this.tokenStorage.writeImpersonatorTokens(adminTokens);
+          this._isImpersonating.set(true);
+        }
+        this.applyAuthResult(result);
+      }),
+    );
+  }
+
+  /** Swap back to the stashed admin session after impersonating a user. */
+  returnToAdmin(): void {
+    const adminTokens = this.tokenStorage.readImpersonatorTokens();
+    if (!adminTokens) return;
+    this.tokenStorage.clearImpersonatorTokens();
+    this.tokenStorage.write(adminTokens);
+    this._isImpersonating.set(false);
   }
 
   getAccessToken(): string | null {

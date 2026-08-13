@@ -42,11 +42,7 @@
         </label>
         <label class="field">
           <span class="field__label">{{ 'admin.role' | translate }}</span>
-          <select [value]="newUserRole()" (change)="newUserRole.set($any($event.target).value)">
-            <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
-            <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
-            <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
-          </select>
+          <app-select [options]="roleOptions()" [value]="newUserRole()" (valueChange)="newUserRole.set($event)" />
         </label>
       </div>
 
@@ -79,15 +75,27 @@
                 <span class="user-row__name">{{ user.name }}</span>
                 <span class="user-row__email">{{ user.email }}</span>
               </span>
-              <select
+              <app-select
                 class="user-row__role"
+                [options]="roleOptions()"
                 [value]="user.role"
-                (change)="changeRole(user, $any($event.target).value)"
-              >
-                <option value="STUDENT">{{ 'admin.roleStudent' | translate }}</option>
-                <option value="TEACHER">{{ 'admin.roleTeacher' | translate }}</option>
-                <option value="ADMIN">{{ 'admin.roleAdmin' | translate }}</option>
-              </select>
+                [ariaLabel]="'admin.role' | translate"
+                (valueChange)="changeRole(user, $event)"
+              />
+              <span class="icon-btn-slot">
+                @if (user.id !== currentUserId()) {
+                  <button
+                    type="button"
+                    class="icon-btn"
+                    [attr.aria-label]="'admin.logInAs' | translate"
+                    [title]="'admin.logInAs' | translate"
+                    [disabled]="!!impersonatingUserId()"
+                    (click)="impersonate(user)"
+                  >
+                    <app-icon name="login" />
+                  </button>
+                }
+              </span>
               <button type="button" class="icon-btn icon-btn--danger" (click)="deleteUser(user)">
                 <app-icon name="x-circle" />
               </button>
@@ -107,27 +115,21 @@
       <div class="form-grid">
         <label class="field">
           <span class="field__label">{{ 'admin.roleTeacher' | translate }}</span>
-          <select
-            [value]="newAssignmentTeacherId()"
-            (change)="newAssignmentTeacherId.set($any($event.target).value)"
-          >
-            <option value="">—</option>
-            @for (teacher of teachers(); track teacher.id) {
-              <option [value]="teacher.id">{{ teacher.name }}</option>
-            }
-          </select>
+          <app-select
+            [options]="teacherOptions()"
+            [value]="newAssignmentTeacherId() || null"
+            placeholder="—"
+            (valueChange)="newAssignmentTeacherId.set($event)"
+          />
         </label>
         <label class="field">
           <span class="field__label">{{ 'admin.roleStudent' | translate }}</span>
-          <select
-            [value]="newAssignmentStudentId()"
-            (change)="newAssignmentStudentId.set($any($event.target).value)"
-          >
-            <option value="">—</option>
-            @for (student of students(); track student.id) {
-              <option [value]="student.id">{{ student.name }}</option>
-            }
-          </select>
+          <app-select
+            [options]="studentOptions()"
+            [value]="newAssignmentStudentId() || null"
+            placeholder="—"
+            (valueChange)="newAssignmentStudentId.set($event)"
+          />
         </label>
       </div>
 

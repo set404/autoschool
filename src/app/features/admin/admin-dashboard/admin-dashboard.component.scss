@@ -81,9 +81,7 @@
   color: var(--color-text);
 }
 
-.field input,
-.field select,
-select.user-row__role {
+.field input {
   width: 100%;
   padding: 10px 12px;
   border-radius: var(--radius-control);
@@ -167,8 +165,7 @@ select.user-row__role {
   }
 
   &__role {
-    width: auto;
-    max-width: 110px;
+    width: 165px;
     flex-shrink: 0;
   }
 }
@@ -195,6 +192,15 @@ select.user-row__role {
       color: var(--color-text-muted);
     }
   }
+}
+
+.icon-btn-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 .icon-btn {
